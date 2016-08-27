@@ -1,0 +1,106 @@
+Gente, les dejo una posible idea. Mientras lo escribía me di cuenta que podría ser más quilombo de lo que creí,
+y probablemente haya cosas que no se entiendan o no queden muy claras. Subo también un diagrama, aunque
+le faltan un par de cositas. En cualquier caso, la idea general creo que se entiende. En clase lo charlamos
+mejor y lo vemos con dibujitos y todo eso.
+
+
+1 Supuestos:
+* Es posible implementar una cola bloqueante con los mecanismos aceptados.
+* Cada grupo de clientes puede ser representado como un proceso.
+* Los recepcionistas están también encargados de llevar gente del Lobby a las mesas.
+  (No tengo enunciado!)
+* Los clientes cuando terminan de comer, pagan y se van sin avisarle a nadie.
+  (Idem!)
+
+2 Analizamos cada interacción por separado:
+
+	2.1 Clientes en Puerta
+	Un proceso genera sub procesos grupo-cliente. Cuando son creados,
+	los grupos de clientes agregan su PID a la cola bloqueante BQ indicada
+	con la etiqueta "PIDs de clientes esperando en puerta". Luego de registrar
+	su PID, cada grupo de clientes queda bloqueado hasta recibir una
+	notificación (con una señal, por ejemplo).
+
+	2.2 Pool de Recepcionistas
+	Tenemos un pool de recepcionistas que actuan de la siguiente forma.
+	Inicialmente registran su PID en la cola RI etiquetada como
+	"Recepcionistas inactivos", tras lo que quedan bloqueados.
+
+	Cuando un recepcionista recibe una señal de wake up, 
+	procede de la siguiente forma:
+		* Verifica en forma no bloqueante que no haya grupos en la puerta.
+		De haber algún grupo en puerta (BQ no vacía), desacola y se guarda
+		el PID de este grupo y sigue con el siguiente paso. En caso contrario
+		solo sigue con el siguiente paso.
+		* Verifica si hay mesas libres (me acabo de dar cuenta que no pensé
+		cómo hacer eso; supongo que se podría usar otra cola más, leída en
+		forma no bloqueante). Si no hay mesa libre, agrega el PID del
+		grupo entrante a la cola Lobby, tras lo que termina agregando
+		su PID a la cola RI y quedando bloqueado. Si hay mesa libre, sigue
+		con el siguiente paso.
+		* Verifica que Lobby no esté vacía. Si está vacía, agrega el PID
+		del nuevo grupo a la cola "Grupos de clientes sin atender", GCSA. 
+		Si no está vacía, agrega el PID del nuevo grupo a la cola Lobby,
+		desacola el siguiente PID p en el Lobby, y acola p en la cola GCSA.
+		Esto último probablemente convenga hacerlo en forma atómica, con
+		algún método pushpop en la cola, por ejemplo. Las colas que
+		mantienen clientes en mesa probablemente deberían ser de estructuras
+		que tengan PID de cliente y número de mesa, o algo así.
+
+		Un recepcionista puede ser despertado de dos formas:
+		* Un mozo acola una mesa libre, y verfica si hay recepcionistas 
+		inactivos. De haberlo, desacola uno y le envía una señal de wake up. 
+		El recepcionista procederá a meter gente al restaurant y a llevar gente 
+		del Lobby a las mesas.
+		* Algún proceso en la puerta (recepcionista en puerta, o algo),
+		envía un wake up a un recepcionista inactivo cuando llega
+		algún grupo de clientes. Para eso lee la cola de recepcionistas inactivos.
+
+		Con los dos métodos cubrimos los dos casos en los que los recepcionistas
+		tienen que despertarse: cuando llega un cliente y cuando hay
+		alguna mesa libre. Lo que puede pasar igualmente es que algún mozo
+		se quede bloqueado mientras no haya recepcionistas inactivos,
+		pero no debería ser mucho tiempo; los recepcionistas despiertan
+		actúan rápido y vuelven a dormir.
+
+	2.3 Pool de Mozos
+		Cada mozo opera de la siguiente forma; cíclicamente, hace lo siguiente:
+		* Verifica en forma no bloqueante que no haya grupos de clientes
+		esperando en "Grupos de clientes sin atender". De haber,
+		desacola un grupo y lo atiende. Al grupo de clientes
+		les deja su PID para que le hagan pedidos luego o le pidan
+		la cuenta.
+		* Lee en forma no bloqueante una FIFO que tiene registros
+		de la siguiente forma: (mesa, pedido), donde mesa es
+		el número de mesa, y pedido codifica la comida que 
+		están pidiendo, o si están pidiendo la cuenta. De haber algún 
+		pedido en espera, lo decodifica y lo acola en la cola de pedidos
+		para el cocinero. Si el pedido es por la cuenta,
+		toma el total pedido por la mesa (almacenado en memoria
+		compartida, quizás por el cocinero cuando acola el plato
+		listo o algo así), y se lo lleva a la mesa. Llevar
+		a la mesa es básicamente indicarle al proceso del grupo
+		de clientes que puede terminar, y guardarse el total cobrado.
+		También debería proceder a buscar un recepcionista inactivo
+		e indicarle que hay una mesa libre, acolando la mesa 
+		libre previamente.
+		* Lee en forma no bloqueante la cola de platos listos,
+		de haber alguno lo lleva a la mesa correspondiente.
+		Las colas de pedidos y platos listos deberían guardar
+		tanto pedidos como números de mesa, en una única
+		estructura.
+		* Guarda todo el dinero acumulado en caja. La caja
+		puede ser un cacho de memoria compartida y lockeada.
+		* Quizás debería haber otra cola, de mozos inactivos.
+		Un mozo se despierta cuando hay platos listos,
+		o cuando recibe una señal de las mesas a las que atiende,
+		o cuando algún recepcionista acola gente sin atender
+		y le envía una señal a algún mozo inactivo.
+
+	2.4 Cocinero
+		El cocinero solo toma pedidos, espera un poco, y acola
+		los platos listos. No debería haber muchos problemas.
+
+	2.5 Gerente
+		No hace mucho. No se que debería hacer. 
+		¿Leer periódicamente lo que está en caja?
