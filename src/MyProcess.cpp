@@ -3,6 +3,7 @@
  * ************************************************************************* */
 
 #include "MyProcess.h"
+#include "OSException.h"
 #include <cstdlib>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -17,6 +18,10 @@
 void MyProcess::start() {
 	pid = fork();
 
+	/* fork error */
+	if (pid == -1)
+		throw OSException();
+
 	/* the child process will exit with the return value of run */
 	if (pid == 0)
 		exit(run());
@@ -29,7 +34,8 @@ void MyProcess::start() {
  */
 int MyProcess::wait() {
 	int status;
-	waitpid(pid, &status, 0);
+	if (waitpid(pid, &status, 0) == -1)
+		throw OSException();
 	return WEXITSTATUS(status);
 }
 

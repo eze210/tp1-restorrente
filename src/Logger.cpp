@@ -15,7 +15,7 @@ static const char *levelTags[] = {
  */
 Logger::Logger() :
 	logLevel(INFO),
-	outputStream(std::cout){
+	outputStream(std::cout) {
 }
 
 /**	TODO: Close the file if it is not a standard flow (stdout, stderr).
@@ -31,4 +31,4 @@ const std::string Logger::getLevelAsString() const {
 	return levelTags[logLevel];
 }
 
-};
+}
