@@ -24,7 +24,9 @@ typedef enum {
 	CRITICAL
 } LogLevel;
 
-/** End of line. */
+/** TODO: If needed, investigate how to use manipulators correctly in
+ * 	non-standard class.
+ * 	Temporarily, we define the end of line dummy way. */
 static const char endl = '\n';
 
 /** Logger class definition. */
