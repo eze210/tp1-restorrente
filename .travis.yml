@@ -7,4 +7,4 @@ before-install:
 - cd build
 - cmake ../src/
 
-build: make
+script: make
