@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.7)
 project(restorrente)
 
 #sets compile flags
-set(CMAKE_CXX_FLAGS "--coverage -fprofile-arcs -ftest-coverage -std=c++11 -O0 -ggdb -Wall -Werror -pedantic ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "--coverage -fprofile-arcs -ftest-coverage -std=c++0x -O0 -ggdb -Wall -Werror -pedantic ${CMAKE_CXX_FLAGS}")
 
 #adds the source and header files recursively
 file(GLOB_RECURSE SOURCES "./*.cpp" "./*.c")
