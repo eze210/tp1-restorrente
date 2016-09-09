@@ -10,7 +10,6 @@
 
 /** Singleton signal handler. */
 class SignalHandler {
-
 private:
 	/** Static method to preserve signature 'void (*)(int)'. */
 	static void staticDispatcher(int signum);

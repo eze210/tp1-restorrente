@@ -7,3 +7,5 @@ script:
 - cd build
 - cmake ../src/
 - make
+- cd ..
+- bash ./linter.sh

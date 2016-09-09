@@ -1,6 +1,8 @@
 /** Include area. */
 #include "Logger.h"
 
+#include <string>
+
 namespace logger {
 
 /** Possible log levels as C strings. */

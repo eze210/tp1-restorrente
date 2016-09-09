@@ -10,7 +10,7 @@ OSException::OSException() {
 	errMsg = ss.str();
 }
 
-const char* OSException::what() const throw () {
+const char* OSException::what() const throw() {
 	return errMsg.c_str();
 }
 

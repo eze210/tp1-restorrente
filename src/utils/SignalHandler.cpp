@@ -8,7 +8,9 @@ SignalHandler& SignalHandler::getInstance() {
 	return instance;
 }
 
-EventHandler* SignalHandler::registerHandler(int signalNumber, EventHandler* eventHandler) {
+EventHandler* SignalHandler::registerHandler(
+		int signalNumber,
+		EventHandler* eventHandler) {
 	EventHandler* oldEventHandler = signalHandlers[signalNumber];
 	signalHandlers[signalNumber] = eventHandler;
 

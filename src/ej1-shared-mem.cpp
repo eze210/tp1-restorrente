@@ -40,7 +40,8 @@ int main(int argc, char *argv[]) {
 		if (key == -1) {
 			throw OSException();
 		}
-		idGet = shmget(key, numberOfChildren * sizeof(int), IPC_CREAT | IPC_EXCL | S_IRUSR | S_IWUSR);
+		idGet = shmget(key, numberOfChildren * sizeof(int),
+				IPC_CREAT | IPC_EXCL | S_IRUSR | S_IWUSR);
 		LOGGER << "ID Get: " << idGet << logger::endl;
 		if (idGet == -1) {
 			throw OSException();

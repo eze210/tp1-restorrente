@@ -2,10 +2,9 @@
 #define EVENTHANDLER_H_
 
 class EventHandler {
-
 public:
 	virtual int handleSignal(int signalNumber) = 0;
-	virtual ~EventHandler() {};
+	virtual ~EventHandler() {}
 };
 
 #endif

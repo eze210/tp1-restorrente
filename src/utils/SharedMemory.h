@@ -10,7 +10,6 @@
 #include <errno.h>
 
 template <class T> class SharedMemory {
-
 private:
 	int	sharedMemoryID;
 	T*	dataPointer;
@@ -24,16 +23,20 @@ public:
 
 	SharedMemory(const std::string& fileName, const char character);
 	SharedMemory(const SharedMemory& another);
-	~SharedMemory ();
+	~SharedMemory();
 	SharedMemory<T>& operator=(const SharedMemory& another);
 	void write(const T& data);
 	T read() const;
 };
 
-template <class T> SharedMemory<T>::SharedMemory() : sharedMemoryID(0), dataPointer(NULL) {
+template <class T> SharedMemory<T>::SharedMemory() :
+		sharedMemoryID(0),
+		dataPointer(NULL) {
 }
 
-template <class T> void SharedMemory<T>::create(const std::string& fileName, const char character) {
+template <class T> void SharedMemory<T>::create(
+		const std::string& fileName,
+		const char character) {
 	key_t key = ftok(fileName.c_str(), character);
 	if (key <= 0)
 		throw OSException();
@@ -42,7 +45,7 @@ template <class T> void SharedMemory<T>::create(const std::string& fileName, con
 	if (this->sharedMemoryID <= 0)
 		throw OSException();
 
-	void* tmpPtr = shmat ( this->sharedMemoryID,NULL,0 );
+	void* tmpPtr = shmat(this->sharedMemoryID, NULL, 0);
 	if (tmpPtr == (void*) -1)
 		throw OSException();
 
@@ -58,7 +61,9 @@ template <class T> void SharedMemory<T>::free() {
 		shmctl(this->sharedMemoryID, IPC_RMID, NULL);
 }
 
-template <class T> SharedMemory<T>::SharedMemory(const std::string& fileName, const char character ) :
+template <class T> SharedMemory<T>::SharedMemory(
+		const std::string& fileName,
+		const char character) :
 				sharedMemoryID(0), dataPointer(NULL) {
 	this->create(fileName, character);
 }
@@ -76,7 +81,8 @@ template <class T> SharedMemory<T>::~SharedMemory() {
 	this->free();
 }
 
-template <class T> SharedMemory<T>& SharedMemory<T>::operator=(const SharedMemory& another) {
+template <class T> SharedMemory<T>& SharedMemory<T>::operator=(
+		const SharedMemory& another) {
 	this->sharedMemoryID = another.sharedMemoryID;
 	void* tmpPtr = shmat(this->sharedMemoryID, NULL, 0);
 
