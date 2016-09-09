@@ -11,6 +11,7 @@
 #include "Logger.h"
 #include "OSException.h"
 #include "RandomSleep.h"
+#include "SharedMemory.h"
 
 /**
  * g++ -Wall -Werror -pedantic -std=c++0x *.cpp -ggdb -O3 -o ej
@@ -20,10 +21,13 @@ int main(int argc, char *argv[]) {
 	int idGet = -1;
 	int *array = NULL;
 	try {
+		SharedMemory<int> integer("/bin/bash", 1);
 		if (argc != 2) {
 			std::cout << "usage: " << argv[0] << " numberOfChildren" << std::endl;
 			return 1;
 		}
+
+		integer.write(4);
 
 		std::stringstream ss;
 		ss << argv[1];
@@ -31,7 +35,7 @@ int main(int argc, char *argv[]) {
 		ss >> numberOfChildren;
 		std::vector<RandomSleep> children(numberOfChildren);
 
-		key_t key = ftok(__FILE__, 0);
+		key_t key = ftok("/bin/bash", 0);
 		LOGGER << "Key: " << key << logger::endl;
 		if (key == -1) {
 			throw OSException();
@@ -50,10 +54,10 @@ int main(int argc, char *argv[]) {
 		array = (int*)arrayV;
 
 		for (int i = 0; i < numberOfChildren; ++i) {
-					children[i].start(idGet, i);
+			children[i].start(idGet, i);
 		}
 		for (int j = 0; j < numberOfChildren; ++j) {
-					children[j].wait();
+			children[j].wait();
 			std::cout << "Child slept " << array[j] << " seconds" << std::endl;
 		}
 	}
