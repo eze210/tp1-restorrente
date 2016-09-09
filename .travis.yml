@@ -3,7 +3,7 @@ dist: trusty
 language: cpp
 
 before_install:
-- mkdir tp1-restorrente/build/*
-- cd tp1-restorrente/build
+- mkdir build
+- cd build
 - cmake ../src/
 - make
