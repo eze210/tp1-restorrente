@@ -2,8 +2,9 @@ dist: trusty
 
 language: cpp
 
-build:
+before-install:
 - mkdir build
 - cd build
 - cmake ../src/
-- make
+
+build: make
