@@ -1,7 +1,7 @@
 #include "OSException.h"
 
 #include <sstream>
-#include <errno.h>
+#include <cerrno>
 #include <cstring>
 
 OSException::OSException() {

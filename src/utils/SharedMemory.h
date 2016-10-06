@@ -7,7 +7,7 @@
 #include <string>
 #include <string.h>
 #include <iostream>
-#include <errno.h>
+#include <cerrno>
 
 template <class T> class SharedMemory {
 private:
