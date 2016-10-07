@@ -6,6 +6,7 @@
 class ClientsGroup {
 private:
 	int id;
+
 public:
 	explicit ClientsGroup(int id) : id(id) {
 	}
