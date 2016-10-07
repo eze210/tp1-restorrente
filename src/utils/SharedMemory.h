@@ -8,6 +8,7 @@
 #include <string.h>
 #include <iostream>
 #include <cerrno>
+#include "OSException.h"
 
 template <class T> class SharedMemory {
 private:
