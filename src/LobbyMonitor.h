@@ -13,13 +13,15 @@ private:
 	LobbyMonitor();
 
 public:
+	size_t getNumberOfClientsInLobby();
 	void addClient();
 	void getClient();
+
 	size_t getNumberOfFreeTables();
 	void increaseFreeTables();
 	void decreaseFreeTables();
+
 	LobbyMonitor &getInstance();
-	~LobbyMonitor();
 };
 
 #endif
