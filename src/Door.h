@@ -1,7 +1,7 @@
 #ifndef DOOR_H_
 #define DOOR_H_
 
-#include "ClientsGroup.h"
+#include <domain/ClientsGroup.h>
 
 class Door {
 public:

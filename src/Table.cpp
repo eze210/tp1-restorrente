@@ -1,6 +1,6 @@
 #include "Table.h"
 #include "LobbyMonitor.h"
-#include "ClientsGroup.h"
+#include "domain/ClientsGroup.h"
 
 Table::Table() : keepAlive(true) {
 }

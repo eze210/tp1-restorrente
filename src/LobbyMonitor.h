@@ -3,7 +3,7 @@
 
 #include "Mutex.h"
 #include "SharedMemory.h"
-#include "ClientsGroup.h"
+#include "domain/ClientsGroup.h"
 
 class LobbyMonitor {
 private:
