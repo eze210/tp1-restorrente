@@ -15,22 +15,15 @@ private:
     /** Queue to tables (without enter to lobby) */
 
     /** Lobby queue */
-
     LobbyMonitor();
 
 public:
     size_t getNumberOfClientsInLobby();
-
     void addClients(const ClientsGroup &clients);
-
     ClientsGroup getClients();
-
     size_t getNumberOfFreeTables();
-
     void increaseFreeTables();
-
     void decreaseFreeTables();
-
     static LobbyMonitor &getInstance();
 };
 

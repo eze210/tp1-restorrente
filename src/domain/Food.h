@@ -11,15 +11,15 @@ using std::string;
 
 class Food {
 public:
-    Food(string desc, int prepTime, float cost);
-    string getDescription();
+    Food(string desc, float cost);
+    //string getDescription();
     int getPreparationTime();
     float getCost();
-    string serialize();
+    const string serialize() const;
     ~Food();
 private:
     string description;
-    int preparationTime;
+    //int preparationTime;
     float cost;
 };
 

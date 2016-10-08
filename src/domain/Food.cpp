@@ -5,11 +5,11 @@
 #include "Food.h"
 #include <string>
 
-string Food::serialize() {
+const string Food::serialize() const {
     return "("
            + description
            + "," + std::to_string(cost)
-           + "," + std::to_string(preparationTime)
+           //+ "," + std::to_string(preparationTime)
            + ")";
 }
 

@@ -17,7 +17,7 @@ endforeach ()
 list(REMOVE_DUPLICATES DIRS)
 include_directories(${DIRS})
 
-add_executable(restorrente ${SOURCES})
+add_executable(restorrente ${SOURCES} Main.cpp Config.cpp Config.h)
 set_target_properties(restorrente PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(restorrente)

@@ -16,7 +16,7 @@
  * g++ -Wall -Werror -pedantic -std=c++0x *.cpp -ggdb -O3 -o ej
  */
 
-int main(int argc, char *argv[]) {
+int main1(int argc, char *argv[]) {
     int idGet = -1;
     int *array = NULL;
     try {
