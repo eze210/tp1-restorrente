@@ -3,13 +3,15 @@
 
 #include "MyProcess.h"
 
-class Table: public MyProcess {
+class Table : public MyProcess {
 private:
-	bool keepAlive;
+    bool keepAlive;
 public:
-	Table();
-	int run();
-	~Table();
+    Table();
+
+    int run();
+
+    ~Table();
 };
 
 #endif

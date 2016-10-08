@@ -6,13 +6,14 @@
 
 class FifoWrite : public Fifo {
 private:
-	void open();
+    void open();
 
 public:
-	explicit FifoWrite(const std::string &fileName);
-	~FifoWrite();
+    explicit FifoWrite(const std::string &fileName);
 
-	ssize_t write(const void* buffer, const ssize_t bufferSize) const;
+    ~FifoWrite();
+
+    ssize_t write(const void *buffer, const ssize_t bufferSize) const;
 };
 
 #endif

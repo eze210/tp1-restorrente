@@ -6,7 +6,11 @@
 #include <string>
 
 string Food::serialize() {
-    return "(" + description + "," + std::to_string(cost) + "," + std::to_string(preparationTime) + ")";
+    return "("
+           + description
+           + "," + std::to_string(cost)
+           + "," + std::to_string(preparationTime)
+           + ")";
 }
 
 Food::~Food() { }

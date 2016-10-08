@@ -5,10 +5,10 @@
 
 class Door {
 public:
-	Door();
-	ClientsGroup getClients();
-	void addClients(ClientsGroup &clients);
-	~Door();
+    Door();
+    ClientsGroup getClients();
+    void addClients(ClientsGroup &clients);
+    ~Door();
 };
 
 #endif

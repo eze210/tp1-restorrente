@@ -4,16 +4,16 @@
 #include <string>
 
 FifoRead::FifoRead(const std::string &fileName) : Fifo(fileName) {
-	open();
+    open();
 }
 
 FifoRead::~FifoRead() {
 }
 
 void FifoRead::open() {
-	fileDescriptor = ::open(fileName.c_str(), O_RDONLY);
+    fileDescriptor = ::open(fileName.c_str(), O_RDONLY);
 }
 
-ssize_t FifoRead::read(void* buffer, const ssize_t bufferSize) const {
-	return ::read(fileDescriptor, buffer, bufferSize);
+ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) const {
+    return ::read(fileDescriptor, buffer, bufferSize);
 }

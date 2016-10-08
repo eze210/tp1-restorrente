@@ -3,21 +3,22 @@
 
 #include <unistd.h>
 #include <vector>
+#include <string>
 #include "Food.h"
 
-using namespace std;
+using std::string;
+using std::vector;
 
 class ClientsGroup {
-
 private:
-	int id;
+    int id;
     vector<Food> order;
 public:
-	ClientsGroup(int id);
-	void eat();
-	void addOrder(Food food);
-	vector<Food> getOrder();
-	const char* serialize();
+    explicit ClientsGroup(int id);
+    void eat();
+    void addOrder(Food food);
+    vector<Food> getOrder();
+    const char *serialize();
 };
 
 #endif

@@ -7,10 +7,9 @@
 
 #include <string>
 
-using namespace std;
+using std::string;
 
 class Food {
-
 public:
     Food(string desc, int prepTime, float cost);
     string getDescription();
@@ -18,7 +17,6 @@ public:
     float getCost();
     string serialize();
     ~Food();
-
 private:
     string description;
     int preparationTime;

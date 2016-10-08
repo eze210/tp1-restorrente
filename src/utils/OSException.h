@@ -6,11 +6,11 @@
 
 class OSException : public std::exception {
 private:
-	std::string errMsg;
+    std::string errMsg;
 public:
-	OSException();
-	virtual const char* what() const throw();
-	virtual ~OSException() throw();
+    OSException();
+    virtual const char *what() const throw();
+    virtual ~OSException() throw();
 };
 
 #endif

@@ -6,12 +6,14 @@
 
 class FifoRead : public Fifo {
 private:
-	void open();
-public:
-	explicit FifoRead(const std::string &fileName);
-	~FifoRead();
+    void open();
 
-	ssize_t read(void* buffer, const ssize_t bufferSize) const;
+public:
+    explicit FifoRead(const std::string &fileName);
+
+    ~FifoRead();
+
+    ssize_t read(void *buffer, const ssize_t bufferSize) const;
 };
 
 #endif

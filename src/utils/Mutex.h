@@ -6,14 +6,14 @@
 
 class Mutex {
 private:
-	struct flock flock;
-	int fileDescriptor;
+    struct flock flock;
+    int fileDescriptor;
 
 public:
-	explicit Mutex(const std::string &fileName);
-	void lock();
-	void unlock();
-	~Mutex();
+    explicit Mutex(const std::string &fileName);
+    void lock();
+    void unlock();
+    ~Mutex();
 };
 
 #endif

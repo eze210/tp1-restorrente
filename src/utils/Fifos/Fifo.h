@@ -5,15 +5,19 @@
 
 class Fifo {
 public:
-	explicit Fifo(const std::string &fileName);
-	virtual ~Fifo();
-	virtual void open() = 0;
-	void close();
-	void release() const;
+    explicit Fifo(const std::string &fileName);
+
+    virtual ~Fifo();
+
+    virtual void open() = 0;
+
+    void close();
+
+    void release() const;
 
 protected:
-	const std::string fileName;
-	int fileDescriptor;
+    const std::string fileName;
+    int fileDescriptor;
 };
 
 #endif

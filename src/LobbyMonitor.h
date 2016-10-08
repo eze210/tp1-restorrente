@@ -7,27 +7,31 @@
 
 class LobbyMonitor {
 private:
-	/** Exclusive lock. */
-	Mutex mutex;
-	/** Shared counters. */
-	SharedMemory<size_t> numberOfFreeTables;
-	SharedMemory<size_t> numberOfClientsInLobby;
-	/** Queue to tables (without enter to lobby) */
+    /** Exclusive lock. */
+    Mutex mutex;
+    /** Shared counters. */
+    SharedMemory<size_t> numberOfFreeTables;
+    SharedMemory<size_t> numberOfClientsInLobby;
+    /** Queue to tables (without enter to lobby) */
 
-	/** Lobby queue */
+    /** Lobby queue */
 
-	LobbyMonitor();
+    LobbyMonitor();
 
 public:
-	size_t getNumberOfClientsInLobby();
-	void addClients(const ClientsGroup &clients);
-	ClientsGroup getClients();
+    size_t getNumberOfClientsInLobby();
 
-	size_t getNumberOfFreeTables();
-	void increaseFreeTables();
-	void decreaseFreeTables();
+    void addClients(const ClientsGroup &clients);
 
-	static LobbyMonitor &getInstance();
+    ClientsGroup getClients();
+
+    size_t getNumberOfFreeTables();
+
+    void increaseFreeTables();
+
+    void decreaseFreeTables();
+
+    static LobbyMonitor &getInstance();
 };
 
 #endif

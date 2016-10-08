@@ -6,15 +6,16 @@
 /** Uses the RAII C++ idiom for lock a function scope more safely. */
 class LockedScope {
 private:
-	Mutex &mutex;
+    Mutex &mutex;
 
 public:
-	explicit LockedScope(Mutex &mutex) : mutex(mutex){
-		mutex.lock();
-	}
-	~LockedScope() {
-		mutex.unlock();
-	}
+    explicit LockedScope(Mutex &mutex) : mutex(mutex) {
+        mutex.lock();
+    }
+
+    ~LockedScope() {
+        mutex.unlock();
+    }
 };
 
 #endif

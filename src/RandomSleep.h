@@ -3,15 +3,18 @@
 
 #include "MyProcess.h"
 
-class RandomSleep: public MyProcess {
+class RandomSleep : public MyProcess {
 private:
-	long int random();
-	int getId;
-	int idx;
+    long int random();
+
+    int getId;
+    int idx;
 public:
-	int start(int getId, int idx);
-	virtual int run();
-	virtual ~RandomSleep();
+    int start(int getId, int idx);
+
+    virtual int run();
+
+    virtual ~RandomSleep();
 };
 
 #endif

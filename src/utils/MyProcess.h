@@ -5,12 +5,12 @@
 
 class MyProcess {
 private:
-	pid_t pid;
+    pid_t pid;
 public:
-	void start();
-	int wait();
-	virtual int run() = 0;
-	virtual ~MyProcess();
+    void start();
+    int wait();
+    virtual int run() = 0;
+    virtual ~MyProcess();
 };
 
 #endif
