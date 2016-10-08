@@ -15,7 +15,7 @@ ClientsGroup Door::getClients() {
 	return clients;
 }
 
-void Door::addClients(ClientsGroup clients) {
+void Door::addClients(ClientsGroup &clients) {
 	static FifoWrite doorFifo(doorFifoName);
 	doorFifo.write(static_cast<const void*>(&clients), sizeof clients);
 }

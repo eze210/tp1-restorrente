@@ -7,7 +7,7 @@ class Door {
 public:
 	Door();
 	ClientsGroup getClients();
-	void addClients(ClientsGroup clientsGroup);
+	void addClients(ClientsGroup &clients);
 	~Door();
 };
 

@@ -7,6 +7,7 @@
 static const std::string lobbyFifoName("lobby.fifo");
 static const std::string tableQueueFifoName("tablequeue.fifo");
 
+
 /** The instances in different processes of this class will have the
  * 	same exclusive lock, and share the same shared counters.
  */
