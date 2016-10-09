@@ -90,7 +90,7 @@ vector<Food> Config::getFoodsFromLine(string line) {
         string foodCost;
         getline(f, foodName, ',');
         getline(f, foodCost, ',');
-        int cost = std::stoi(foodCost);
+        float cost = std::stof(foodCost);
         foodsVector.push_back(Food(foodName, cost));
     }
     return foodsVector;

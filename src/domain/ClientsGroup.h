@@ -10,15 +10,20 @@ using std::string;
 using std::vector;
 
 class ClientsGroup {
-private:
+protected:
     int id;
     vector<Food> order;
+    ClientsGroup();
 public:
     explicit ClientsGroup(int id);
+    static ClientsGroup BuildClientsGroup(int id);
+    ClientsGroup& addOrder(Food food);
+    const ClientsGroup& addOrder(Food food) const;
     void eat();
-    void addOrder(Food food);
     vector<Food> getOrder();
+    float getTotalCost();
     const char *serialize();
+    virtual bool notNull();
 };
 
 #endif

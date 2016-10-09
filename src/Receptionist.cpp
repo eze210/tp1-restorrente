@@ -6,8 +6,11 @@ Receptionist::Receptionist(Door &door, LobbyMonitor &lobbyMonitor) :
 }
 
 int Receptionist::run() {
-    while (true) {
-        lobbyMonitor.addClients(door.getClients());
+    ClientsGroup clients = door.getClients();
+    while (clients.notNull()) {
+        lobbyMonitor.addClients(clients);
+        clients = door.getClients();
+        std::cout << clients.notNull() << std::endl;
     }
     return 0;
 }

@@ -10,6 +10,14 @@ Food::Food(string desc, float cost) {
     this->cost = cost;
 }
 
+string Food::getDescription() {
+    return description;
+}
+
+float Food::getCost() {
+    return cost;
+}
+
 const string Food::serialize() const {
     return "("
            + description

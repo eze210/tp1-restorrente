@@ -17,7 +17,7 @@ endforeach ()
 list(REMOVE_DUPLICATES DIRS)
 include_directories(${DIRS})
 
-add_executable(restorrente ${SOURCES} Main.cpp data/Config.cpp data/Config.h)
+add_executable(restorrente ${SOURCES} Main.cpp data/Config.cpp data/Config.h processes/ClientsGenerator.cpp processes/ClientsGenerator.h domain/NullClientsGroup.cpp domain/NullClientsGroup.h)
 set_target_properties(restorrente PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(restorrente)

@@ -9,6 +9,7 @@ class Receptionist : public MyProcess {
 private:
     Door &door;
     LobbyMonitor &lobbyMonitor;
+    SharedMemory<bool> restaurantOpen;
 public:
     Receptionist(Door &door, LobbyMonitor &lobbyMonitor);
     int run();

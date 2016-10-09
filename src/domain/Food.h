@@ -12,8 +12,8 @@ using std::string;
 class Food {
 public:
     Food(string desc, float cost);
-    //string getDescription();
-    int getPreparationTime();
+    string getDescription();
+    //int getPreparationTime();
     float getCost();
     const string serialize() const;
     ~Food();
