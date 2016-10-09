@@ -10,3 +10,11 @@
 		$ cmake ../src
 		$ make
 	```
+
+###To run the executable after the build
+    ```bash
+        $ mkdir build/data
+        $ cp src/data/conf build/data/
+        $ cd build/
+        $ ./restorrente
+    ```
