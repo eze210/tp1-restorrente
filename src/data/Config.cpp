@@ -2,16 +2,24 @@
 // Created by fabrizio on 08/10/16.
 //
 
-#include <iostream>
-#include <fstream>
 #include "Config.h"
 #include <sstream>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <vector>
 
 using std::ifstream;
 using std::cout;
 using std::string;
 using std::istringstream;
 
+
+bool Config::loaded;
+int Config::receptionists;
+int Config::waiters;
+int Config::tables;
+vector<Food> Config::foods;
 
 Config::Config() {
     Config::loaded = false;
@@ -21,15 +29,14 @@ Config::Config() {
     Config::foods = vector<Food>();
 }
 
-
 void Config::loadConfig() {
     if (loaded)
         return;
     Config();
     ifstream conf;
-    conf.open ("./data/conf");
+    conf.open("./data/conf");
     if (!conf.is_open()) {
-        cout << "No se pudo abrir el archivo";
+        cout << "No se pudo abrir el archivo" << std::endl;
         return;
     }
     try {
@@ -39,8 +46,10 @@ void Config::loadConfig() {
         foods = getFoodsFromLine(getNextConfValue(conf));
         loaded = true;
     } catch (const ifstream::failure& e){
-        cout << "Error leyendo el archivo";
+        cout << "Error leyendo el archivo" << std::endl;
         loaded = false;
+    } catch (std::invalid_argument& e ) {
+        cout << "Error parseando archivo" << std::endl;
     }
     if ((conf) && (conf.is_open())) {
         conf.close();
@@ -67,20 +76,19 @@ vector<Food> Config::getAvailableFoods() {
 string Config::getNextConfValue(ifstream& conf) {
     string line;
     getline(conf, line);
-    return line.substr(line.find('='), string::npos);
+    return line.substr(line.find('=')+1, string::npos);
 }
 
 vector<Food> Config::getFoodsFromLine(string line) {
     vector<Food> foodsVector;
     istringstream stream(line);
     string food;
-    while (getline(stream, food, ',')) {
-        food.erase(0,1);
+    while (getline(stream, food, '|')) {
         istringstream f(food);
         string foodName;
         string foodCost;
-        getline(stream, foodName, ',');
-        getline(stream, foodCost, ',');
+        getline(f, foodName, ',');
+        getline(f, foodCost, ',');
         int cost = std::stoi(foodCost);
         foodsVector.push_back(Food(foodName, cost));
     }

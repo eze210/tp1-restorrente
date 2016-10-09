@@ -1,4 +1,4 @@
 recepcionistas=5
 mesas=5
 mozos=3
-platos=(pollo con papas,90),(hamburguesa completa,70),(ñoquis con salsa,70),(pizza, 90)
+platos=pollo con papas,90|hamburguesa completa,70|ñoquis con salsa,70|pizza,90

@@ -2,15 +2,16 @@
 // Created by fabrizio on 08/10/16.
 //
 
-#include "Config.h"
+#include "data/Config.h"
+#include <vector>
 
 int main() {
-
     Config::loadConfig();
-    std::cout <<
-            "Recepcionistas: " << Config::getReceptionistsCount() << std::endl <<
-            "Mozos: " << Config::getWaitersCount() << std::endl <<
-            "Mesas: " << Config::getTablesCount() << std::endl;
+    std::cout
+        << "Recepcionistas: " << Config::getReceptionistsCount() << std::endl
+        << "Mozos: " << Config::getWaitersCount() << std::endl
+        << "Mesas: " << Config::getTablesCount()
+        << std::endl;
 
     vector<Food> foods;
     foods = Config::getAvailableFoods();

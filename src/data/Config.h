@@ -6,6 +6,7 @@
 #define RESTORRENTE_CONFIG_H
 
 #include <vector>
+#include <string>
 #include <tuple>
 #include <fstream>
 #include <iostream>
@@ -32,6 +33,5 @@ public:
     static int getTablesCount();
     static vector<Food> getAvailableFoods();
 };
-
 
 #endif //RESTORRENTE_CONFIG_H
