@@ -48,7 +48,7 @@ void Config::loadConfig() {
     } catch (const ifstream::failure& e){
         cout << "Error leyendo el archivo" << std::endl;
         loaded = false;
-    } catch (std::invalid_argument& e ) {
+    } catch (const std::invalid_argument& e) {
         cout << "Error parseando archivo" << std::endl;
     }
     if ((conf) && (conf.is_open())) {
