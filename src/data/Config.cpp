@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <stdexcept>
 
 using std::ifstream;
 using std::cout;
