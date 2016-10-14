@@ -21,7 +21,8 @@ void FifoWrite::open() {
 ssize_t FifoWrite::write(const void *buffer, const ssize_t bufferSize) const {
 	std::cout << "writing to " << this->fileName << std::endl;
 	ssize_t result = ::write(fileDescriptor, buffer, bufferSize);
-	std::cout << "writed " << result << " bytes to " << this->fileName << std::endl;
+	std::cout << "writed " << result << " bytes to " <<
+			this->fileName << std::endl;
 	if (result == -1)
 		throw OSException();
 	return result;

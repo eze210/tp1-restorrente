@@ -20,7 +20,8 @@ void FifoRead::open() {
 ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) const {
 	std::cout << "reading from " << this->fileName << std::endl;
     ssize_t result = ::read(fileDescriptor, buffer, bufferSize);
-    std::cout << "readed " << result << " bytes from " << this->fileName << std::endl;
+    std::cout << "readed " << result << " bytes from " <<
+    		this->fileName << std::endl;
     if (result == -1)
     	throw OSException();
     return result;
