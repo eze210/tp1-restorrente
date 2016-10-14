@@ -4,6 +4,7 @@
 #include "MyProcess.h"
 #include "Door.h"
 #include "SharedMemory.h"
+#include "LobbyMonitor.h"
 
 class Receptionist : public MyProcess {
 private:

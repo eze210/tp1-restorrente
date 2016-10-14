@@ -15,7 +15,9 @@ static const std::string tableQueueFifoName("tablequeue.fifo");
 LobbyMonitor::LobbyMonitor() :
         mutex("lobby_monitor.mutex"),
         numberOfFreeTables(__FILE__, 't'),
-        numberOfClientsInLobby(__FILE__, 'c') {
+        numberOfClientsInLobby(__FILE__, 'c'),
+		lobbyFifo(lobbyFifoName),
+		tableQueueFifo(tableQueueFifoName) {
 }
 
 
@@ -94,6 +96,15 @@ void LobbyMonitor::decreaseFreeTables() {
 size_t LobbyMonitor::getNumberOfFreeTables() {
     LockedScope l(mutex);
     return numberOfFreeTables.read();
+}
+
+
+/** Releases the fifos used by monitor.
+ */
+void LobbyMonitor::release() {
+	lobbyFifo.release();
+	tableQueueFifo.release();
+	mutex.release();
 }
 
 

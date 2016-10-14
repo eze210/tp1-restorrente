@@ -44,6 +44,8 @@ int main() {
 	for (Table &table : tables) {
 		table.wait();
 	}
+	door.releaseFifo();
+	LobbyMonitor::getInstance().release();
 
 	return 0;
 }

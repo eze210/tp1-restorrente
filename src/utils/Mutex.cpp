@@ -5,11 +5,12 @@
 #include <iostream>
 
 #define SYSTEM_ERROR (-1)
+const int Mutex::invalidFileDescriptor = -1;
 
 Mutex::Mutex(const std::string &fileName) :
         fileDescriptor(open(fileName.c_str(), O_CREAT | O_WRONLY, 0777)),
 		fileName(fileName) {
-    if (fileDescriptor == SYSTEM_ERROR)
+    if (fileDescriptor == invalidFileDescriptor)
         throw OSException();
 
     flock.l_type = F_WRLCK;
@@ -30,7 +31,14 @@ void Mutex::unlock() {
         throw OSException();
 }
 
+void Mutex::release() {
+	unlink(fileName.c_str());
+}
+
 Mutex::~Mutex() {
-    if (close(fileDescriptor) == SYSTEM_ERROR)
+	if (fileDescriptor == invalidFileDescriptor)
+		return;
+
+	if (close(fileDescriptor) == SYSTEM_ERROR)
         throw OSException();
 }

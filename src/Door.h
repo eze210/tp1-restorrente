@@ -1,13 +1,18 @@
 #ifndef DOOR_H_
 #define DOOR_H_
 
-#include <domain/ClientsGroup.h>
+#include "ClientsGroup.h"
+#include "Fifo.h"
 
 class Door {
+private:
+	Fifo doorFifo;
+
 public:
     Door();
     ClientsGroup getClients();
-    void addClients(const uint32_t clientID);
+    void addClients(const ClientID clientID);
+    void releaseFifo();
     ~Door();
 };
 

@@ -1,6 +1,4 @@
-#include <Door.h>
-#include <data/Config.h>
-#include <vector>
+#include "Door.h"
 #include "ClientsGenerator.h"
 
 #define CLIENTS_COUNT 10

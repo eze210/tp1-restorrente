@@ -2,20 +2,22 @@
 #define FIFO_H_
 
 #include <string>
+#include <cstdint>
 #include "OSException.h"
 
 class Fifo {
-public:
-    explicit Fifo(const std::string &fileName);
-    virtual ~Fifo();
-    virtual void open() = 0;
-    void close();
-    void release() const;
-    static const int invalidFileDescriptor;
-
 protected:
-    const std::string fileName;
-    int fileDescriptor;
+	const std::string fileName;
+	int fileDescriptor;
+
+public:
+	explicit Fifo(const std::string &fileName);
+	virtual ~Fifo();
+	virtual void open() {}
+	void close();
+	void release();
+
+	static const int invalidFileDescriptor;
 };
 
 #endif

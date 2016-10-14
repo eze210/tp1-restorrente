@@ -14,7 +14,10 @@ public:
     explicit Mutex(const std::string &fileName);
     void lock();
     void unlock();
+    void release();
     ~Mutex();
+
+    static const int invalidFileDescriptor;
 };
 
 #endif

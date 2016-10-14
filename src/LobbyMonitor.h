@@ -4,6 +4,7 @@
 #include "Mutex.h"
 #include "SharedMemory.h"
 #include "domain/ClientsGroup.h"
+#include "Fifo.h"
 
 class LobbyMonitor {
 private:
@@ -12,9 +13,12 @@ private:
     /** Shared counters. */
     SharedMemory<size_t> numberOfFreeTables;
     SharedMemory<size_t> numberOfClientsInLobby;
-    /** Queue to tables (without enter to lobby) */
 
+    /** Queue to tables (without enter to lobby) */
+    Fifo lobbyFifo;
     /** Lobby queue */
+    Fifo tableQueueFifo;
+
     LobbyMonitor();
 
 public:
@@ -24,6 +28,7 @@ public:
     size_t getNumberOfFreeTables();
     void increaseFreeTables();
     void decreaseFreeTables();
+    void release();
     static LobbyMonitor &getInstance();
 };
 

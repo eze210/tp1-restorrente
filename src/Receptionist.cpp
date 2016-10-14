@@ -1,6 +1,5 @@
 #include "Receptionist.h"
 #include "LobbyMonitor.h"
-#include <iostream>
 
 Receptionist::Receptionist(Door &door) :
 		door(door),
