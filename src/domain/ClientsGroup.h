@@ -5,25 +5,28 @@
 #include <vector>
 #include <string>
 #include "Food.h"
+#include <cstdint>
 
-using std::string;
-using std::vector;
+typedef uint32_t ClientID;
 
 class ClientsGroup {
-protected:
-    int id;
-    vector<Food> order;
-    ClientsGroup();
+private:
+    ClientID id;
+    std::vector<Food> order;
+    ClientsGroup() = delete;
+
 public:
-    explicit ClientsGroup(int id);
-    static ClientsGroup BuildClientsGroup(int id);
+    explicit ClientsGroup(ClientID id);
+    ClientID getID() const;
     ClientsGroup& addOrder(Food food);
     const ClientsGroup& addOrder(Food food) const;
     void eat();
-    vector<Food> getOrder();
+    std::vector<Food> getOrder();
     float getTotalCost();
     const char *serialize();
-    virtual bool notNull();
+    bool isValid();
+
+    static const ClientID invalidClientID;
 };
 
 #endif

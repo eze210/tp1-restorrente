@@ -15,4 +15,3 @@ int Table::run() {
 
 Table::~Table() {
 }
-

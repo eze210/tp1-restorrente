@@ -7,7 +7,7 @@ class Door {
 public:
     Door();
     ClientsGroup getClients();
-    void addClients(ClientsGroup &clients);
+    void addClients(const uint32_t clientID);
     ~Door();
 };
 

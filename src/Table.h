@@ -6,11 +6,10 @@
 class Table : public MyProcess {
 private:
     bool keepAlive;
+
 public:
     Table();
-
     int run();
-
     ~Table();
 };
 

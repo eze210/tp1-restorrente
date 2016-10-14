@@ -1,46 +1,36 @@
-//
-// Created by fabrizio on 08/10/16.
-//
-
-#include "data/Config.h"
+#include "Config.h"
 #include "Door.h"
 #include "Receptionist.h"
+#include "ClientsGenerator.h"
+#include "Table.h"
 #include <vector>
-#include <processes/ClientsGenerator.h>
 
 int main() {
-    Config::loadConfig();
-    std::cout
-        << "Recepcionistas: " << Config::getReceptionistsCount() << std::endl
-        << "Mozos: " << Config::getWaitersCount() << std::endl
-        << "Mesas: " << Config::getTablesCount()
-        << std::endl;
+	Config::loadConfig();
+	std::cout <<
+			"Recepcionistas: " << Config::getReceptionistsCount() <<
+			"\nMozos: " << Config::getWaitersCount() <<
+			"\nMesas: " << Config::getTablesCount() << std::endl;
 
-    vector<Food> foods;
-    foods = Config::getAvailableFoods();
-    std::cout << "Comidas: ";
-    for (size_t i = 0; i < foods.size(); i++) {
-        std::cout << foods.at(i).serialize() << ";";
-    }
+	std::vector<Food> foods;
+	foods = Config::getAvailableFoods();
+	std::cout << "Comidas:" << std::endl;
+	for (size_t i = 0; i < foods.size(); i++) {
+		std::cout << foods.at(i).serialize() << ";";
+	}
 
-    Door door;
-    LobbyMonitor monitor = LobbyMonitor::getInstance();
-    ClientsGenerator generator;
-    vector<Receptionist> receptionists;
+	Door door;
+	ClientsGenerator generator;
+	Receptionist receptionist(door);
+	Table table;
 
+	receptionist.start();
+	generator.start();
+	table.start();
 
-    /*for (size_t i = 0; Config::getReceptionistsCount(); i++) {
-        Receptionist receptionist(door, monitor);
-        receptionist.start();
-        receptionists.push_back(receptionist);
-    }*/
+	generator.wait();
+	table.wait();
+	receptionist.wait();
 
-    Receptionist receptionist(door, monitor);
-    receptionist.start();
-    generator.start();
-    generator.wait();
-
-    receptionist.wait();
-
-    return 0;
+	return 0;
 }

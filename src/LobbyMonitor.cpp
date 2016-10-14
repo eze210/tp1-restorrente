@@ -3,6 +3,8 @@
 #include "FifoWrite.h"
 #include "FifoRead.h"
 #include <string>
+#include <iostream>
+
 
 static const std::string lobbyFifoName("lobby.fifo");
 static const std::string tableQueueFifoName("tablequeue.fifo");
@@ -12,7 +14,7 @@ static const std::string tableQueueFifoName("tablequeue.fifo");
  * 	same exclusive lock, and share the same shared counters.
  */
 LobbyMonitor::LobbyMonitor() :
-        mutex(__FILE__ ".mutex"),
+        mutex("lobby_monitor.mutex"),
         numberOfFreeTables(__FILE__, 't'),
         numberOfClientsInLobby(__FILE__, 'c') {
 }
@@ -24,6 +26,7 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
     static FifoWrite lobbyFifo(lobbyFifoName);
     static FifoWrite tableQueueFifo(tableQueueFifoName);
 
+	ClientID clientID = clients.getID();
     mutex.lock();
     size_t freeTables = numberOfFreeTables.read();
     if (freeTables == 0) {
@@ -32,10 +35,10 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
     mutex.unlock();
 
     if (freeTables == 0) {
-        lobbyFifo.write(static_cast<const void *>(&clients), sizeof clients);
+        lobbyFifo.write(static_cast<const void *>(&clientID), sizeof clientID);
     } else {
-        tableQueueFifo.write(static_cast<const void *>(&clients),
-                             sizeof clients);
+        tableQueueFifo.write(static_cast<const void *>(&clientID),
+                             sizeof clientID);
     }
 }
 
@@ -47,19 +50,19 @@ ClientsGroup LobbyMonitor::getClients() {
     static FifoRead lobbyFifo(lobbyFifoName);
     static FifoRead tableQueueFifo(tableQueueFifoName);
 
+	ClientID clientID;
     mutex.lock();
     size_t clientsInLobby = numberOfClientsInLobby.read();
-    ClientsGroup clients(0);
     if (clientsInLobby > 0) {
         numberOfClientsInLobby.write(clientsInLobby - 1);
         mutex.unlock();
-        lobbyFifo.read(static_cast<void *>(&clients), sizeof clients);
+        lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
     } else {
         mutex.unlock();
-        tableQueueFifo.read(static_cast<void *>(&clients), sizeof clients);
+        tableQueueFifo.read(static_cast<void *>(&clientID), sizeof clientID);
     }
 
-    return clients;
+    return ClientsGroup(clientID);
 }
 
 

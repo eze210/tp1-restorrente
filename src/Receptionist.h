@@ -3,17 +3,17 @@
 
 #include "MyProcess.h"
 #include "Door.h"
-#include "LobbyMonitor.h"
+#include "SharedMemory.h"
 
 class Receptionist : public MyProcess {
 private:
-    Door &door;
-    LobbyMonitor &lobbyMonitor;
-    SharedMemory<bool> restaurantOpen;
+	Door &door;
+	SharedMemory<bool> restaurantOpen;
+
 public:
-    Receptionist(Door &door, LobbyMonitor &lobbyMonitor);
-    int run();
-    virtual ~Receptionist();
+	explicit Receptionist(Door &door);
+	int run();
+	virtual ~Receptionist();
 };
 
 #endif

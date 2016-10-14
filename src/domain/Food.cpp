@@ -1,16 +1,12 @@
-//
-// Created by fabrizio on 26/09/16.
-//
-
 #include "Food.h"
 #include <string>
 
-Food::Food(string desc, float cost) {
-    this->description = desc;
-    this->cost = cost;
+Food::Food(const std::string &desc, float cost) :
+    description(desc),
+    cost(cost) {
 }
 
-string Food::getDescription() {
+std::string Food::getDescription() {
     return description;
 }
 
@@ -18,7 +14,7 @@ float Food::getCost() {
     return cost;
 }
 
-const string Food::serialize() const {
+const std::string Food::serialize() const {
     return "("
            + description
            + "," + std::to_string(cost)

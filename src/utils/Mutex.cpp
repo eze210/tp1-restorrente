@@ -2,11 +2,13 @@
 #include "OSException.h"
 #include <unistd.h>
 #include <string>
+#include <iostream>
 
 #define SYSTEM_ERROR (-1)
 
 Mutex::Mutex(const std::string &fileName) :
-        fileDescriptor(open(fileName.c_str(), O_CREAT | O_WRONLY, 0777)) {
+        fileDescriptor(open(fileName.c_str(), O_CREAT | O_WRONLY, 0777)),
+		fileName(fileName) {
     if (fileDescriptor == SYSTEM_ERROR)
         throw OSException();
 
@@ -17,13 +19,15 @@ Mutex::Mutex(const std::string &fileName) :
 }
 
 void Mutex::lock() {
-    flock.l_type = F_WRLCK;
+	std::cout << "locking a lock for write: " << this->fileName << std::endl;
+	flock.l_type = F_WRLCK;
     if (fcntl(fileDescriptor, F_SETLKW, &flock) == SYSTEM_ERROR)
         throw OSException();
 }
 
 void Mutex::unlock() {
-    flock.l_type = F_UNLCK;
+	std::cout << "unlocking a lock for write: " << this->fileName << std::endl;
+	flock.l_type = F_UNLCK;
     if (fcntl(fileDescriptor, F_SETLK, &flock) == SYSTEM_ERROR)
         throw OSException();
 }

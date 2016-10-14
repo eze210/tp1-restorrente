@@ -3,10 +3,10 @@
 #include <unistd.h>
 #include <string>
 
-#define INVALID_FILE_DESCRIPTOR (-1)
+const int Fifo::invalidFileDescriptor = -1;
 
 Fifo::Fifo(const std::string &fileName) :
-        fileName(fileName), fileDescriptor(INVALID_FILE_DESCRIPTOR) {
+        fileName(fileName), fileDescriptor(invalidFileDescriptor) {
     ::mknod(static_cast<const char *>(fileName.c_str()), S_IFIFO | 0666, 0);
 }
 
@@ -15,7 +15,7 @@ Fifo::~Fifo() {
 
 void Fifo::close() {
     ::close(fileDescriptor);
-    fileDescriptor = INVALID_FILE_DESCRIPTOR;
+    fileDescriptor = invalidFileDescriptor;
 }
 
 void Fifo::release() const {

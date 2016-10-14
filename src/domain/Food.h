@@ -1,24 +1,18 @@
-//
-// Created by fabrizio on 26/09/16.
-//
-
 #ifndef TP1_RESTORRENTE_FOOD_H
 #define TP1_RESTORRENTE_FOOD_H
 
 #include <string>
 
-using std::string;
-
 class Food {
 public:
-    Food(string desc, float cost);
-    string getDescription();
+    Food(const std::string &desc, float cost);
+    std::string getDescription();
     //int getPreparationTime();
     float getCost();
-    const string serialize() const;
+    const std::string serialize() const;
     ~Food();
 private:
-    string description;
+    std::string description;
     //int preparationTime;
     float cost;
 };

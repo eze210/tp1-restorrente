@@ -1,20 +1,22 @@
 #include "Receptionist.h"
+#include "LobbyMonitor.h"
+#include <iostream>
 
-Receptionist::Receptionist(Door &door, LobbyMonitor &lobbyMonitor) :
-        door(door),
-        lobbyMonitor(lobbyMonitor) {
+Receptionist::Receptionist(Door &door) :
+		door(door),
+		restaurantOpen(__FILE__, 'o') {
 }
 
 int Receptionist::run() {
-    ClientsGroup clients = door.getClients();
-    while (clients.notNull()) {
-        lobbyMonitor.addClients(clients);
-        clients = door.getClients();
-        std::cout << clients.notNull() << std::endl;
-    }
-    return 0;
+	for (ClientsGroup clients = door.getClients();
+			clients.isValid();
+			clients = door.getClients()) {
+		std::cout << "adding a client to lobby" << std::endl;
+		LobbyMonitor::getInstance().addClients(clients);
+		std::cout << "added a client to lobby" << std::endl;
+	}
+	return 0;
 }
 
 Receptionist::~Receptionist() {
 }
-
