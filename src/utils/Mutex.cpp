@@ -19,14 +19,12 @@ Mutex::Mutex(const std::string &fileName) :
 }
 
 void Mutex::lock() {
-	std::cout << "locking a lock for write: " << this->fileName << std::endl;
 	flock.l_type = F_WRLCK;
     if (fcntl(fileDescriptor, F_SETLKW, &flock) == SYSTEM_ERROR)
         throw OSException();
 }
 
 void Mutex::unlock() {
-	std::cout << "unlocking a lock for write: " << this->fileName << std::endl;
 	flock.l_type = F_UNLCK;
     if (fcntl(fileDescriptor, F_SETLK, &flock) == SYSTEM_ERROR)
         throw OSException();

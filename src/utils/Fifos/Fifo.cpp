@@ -11,6 +11,8 @@ Fifo::Fifo(const std::string &fileName) :
 }
 
 Fifo::~Fifo() {
+	if (fileDescriptor != invalidFileDescriptor)
+		close();
 }
 
 void Fifo::close() {

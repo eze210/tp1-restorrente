@@ -3,7 +3,6 @@
 #include "FifoWrite.h"
 #include "FifoRead.h"
 #include <string>
-#include <iostream>
 
 
 static const std::string lobbyFifoName("lobby.fifo");

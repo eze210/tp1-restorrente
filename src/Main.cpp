@@ -21,16 +21,29 @@ int main() {
 
 	Door door;
 	ClientsGenerator generator;
-	Receptionist receptionist(door);
-	Table table;
+	std::vector<Receptionist> recepcionists(
+			Config::getReceptionistsCount(),
+			Receptionist(door));
+	std::vector<Table> tables(
+			Config::getTablesCount());
 
-	receptionist.start();
+	/* forks all processes */
+	for (Receptionist &recepcionist : recepcionists) {
+		recepcionist.start();
+	}
 	generator.start();
-	table.start();
+	for (Table &table : tables) {
+		table.start();
+	}
 
+	/* waits children */
 	generator.wait();
-	table.wait();
-	receptionist.wait();
+	for (Receptionist &recepcionist : recepcionists) {
+		recepcionist.wait();
+	}
+	for (Table &table : tables) {
+		table.wait();
+	}
 
 	return 0;
 }

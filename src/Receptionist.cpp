@@ -11,9 +11,7 @@ int Receptionist::run() {
 	for (ClientsGroup clients = door.getClients();
 			clients.isValid();
 			clients = door.getClients()) {
-		std::cout << "adding a client to lobby" << std::endl;
 		LobbyMonitor::getInstance().addClients(clients);
-		std::cout << "added a client to lobby" << std::endl;
 	}
 	return 0;
 }
