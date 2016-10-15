@@ -2,6 +2,7 @@
 #include "LockedScope.h"
 #include "FifoWrite.h"
 #include "FifoRead.h"
+#include "Logger.h"
 #include <string>
 
 
@@ -18,6 +19,8 @@ LobbyMonitor::LobbyMonitor() :
         numberOfClientsInLobby(__FILE__, 'c'),
 		lobbyFifo(lobbyFifoName),
 		tableQueueFifo(tableQueueFifoName) {
+	numberOfClientsInLobby.write(0);
+	numberOfClientsInLobby.write(0);
 }
 
 
@@ -36,8 +39,10 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
     mutex.unlock();
 
     if (freeTables == 0) {
+		LOGGER << "Releasing client in the lobby" << logger::endl;
         lobbyFifo.write(static_cast<const void *>(&clientID), sizeof clientID);
     } else {
+		LOGGER << "Releasing client in the table queue" << logger::endl;
         tableQueueFifo.write(static_cast<const void *>(&clientID),
                              sizeof clientID);
     }
@@ -58,9 +63,11 @@ ClientsGroup LobbyMonitor::getClients() {
         numberOfClientsInLobby.write(clientsInLobby - 1);
         mutex.unlock();
         lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
+		LOGGER << "Getting a client from lobby" << logger::endl;
     } else {
         mutex.unlock();
         tableQueueFifo.read(static_cast<void *>(&clientID), sizeof clientID);
+		LOGGER << "Getting a client from the table queue" << logger::endl;
     }
 
     return ClientsGroup(clientID);

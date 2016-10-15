@@ -14,10 +14,10 @@ int main() {
 
 	std::vector<Food> foods;
 	foods = Config::getAvailableFoods();
-	std::cout << "Comidas:" << std::endl;
-	for (size_t i = 0; i < foods.size(); i++) {
-		std::cout << foods.at(i).serialize() << ";";
-	}
+	std::cout << "Comidas: " << foods.size() << std::endl;
+
+	for (ssize_t i = 0; i < Config::getTablesCount(); ++i)
+		LobbyMonitor::getInstance().increaseFreeTables();
 
 	Door door;
 	ClientsGenerator generator;
