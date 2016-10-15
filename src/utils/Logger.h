@@ -2,7 +2,9 @@
 #define LOGGER_H_
 
 /** Include area. */
+#include "Clock.h"
 #include "Singleton.h"
+#include "LockFile.h"
 
 #include <iostream>
 #include <string>
@@ -11,10 +13,14 @@
 #define LOGGER                                                                \
     Singleton<logger::Logger>::instance() <<                                  \
     "[" << Singleton<logger::Logger>::instance().getLevelAsString() << "] " <<\
-    "{" __DATE__ " - " __TIME__"} "                                           \
+    "{" __DATE__ " - " __TIME__ " - " <<                                      \
+    Singleton<restoclock::Clock>::instance().getNanosecondsAsString() << "} "    \
     "(" << __FILE__ << ":" << __LINE__ << "): "
 
 namespace logger {
+
+    static const char *LOG_FILE = "/tmp/restorrente.log";
+    static LockFile loggingLock(LOG_FILE);
 
 /** Possible logging levels. */
     typedef enum {
@@ -32,16 +38,34 @@ namespace logger {
 /** Logger class definition. */
     class Logger {
     private:
+
         LogLevel logLevel;
         std::ostream &outputStream;
+
+        class ConditionallyUnlockedScope {
+        private:
+        	LockFile &lock;
+        	bool unlock;
+        public:
+        	ConditionallyUnlockedScope(LockFile &lock, bool unlock);
+        	~ConditionallyUnlockedScope();
+        };
 
     public:
         Logger();
 
         template<typename T>
         const Logger &operator<<(const T &message) const {
+        	ConditionallyUnlockedScope(loggingLock, false);
             outputStream << message;
             return *this;
+        }
+
+        /* The logging lock is only unlocked when given a logger::endl character! */
+        const Logger &operator<<(const char message) const {
+        	ConditionallyUnlockedScope(loggingLock, message == logger::endl);
+        	outputStream << message;
+        	return *this;
         }
 
         const std::string getLevelAsString() const;
