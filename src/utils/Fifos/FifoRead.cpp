@@ -18,7 +18,7 @@ void FifoRead::open() {
 
 ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) const {
     ssize_t result = ::read(fileDescriptor, buffer, bufferSize);
-    if (result == -1)
+    if (result != bufferSize)
     	throw OSException();
     return result;
 }

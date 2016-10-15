@@ -6,6 +6,8 @@
 #include "SharedMemory.h"
 #include "LobbyMonitor.h"
 
+typedef char ReceptionistID;
+
 class Receptionist : public MyProcess {
 private:
 	Door &door;

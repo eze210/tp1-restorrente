@@ -16,6 +16,5 @@ int ClientsGenerator::run() {
     			logger::endl;
         door.addClients(i);
     }
-    door.addClients(ClientsGroup::invalidClientID);
     return 0;
 }

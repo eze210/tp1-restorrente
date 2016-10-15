@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Food.h"
+#include "Logger.h"
 
 const ClientID ClientsGroup::invalidClientID = -1;
 
@@ -22,7 +23,11 @@ ClientsGroup& ClientsGroup::addOrder(Food food) {
 }
 
 void ClientsGroup::eat() {
+	LOGGER << "The clients group " << id << " are eating" <<
+			logger::endl;
     sleep(1);
+	LOGGER << "The clients group " << id << " finished the food" <<
+			logger::endl;
 }
 
 std::vector<Food> ClientsGroup::getOrder() {

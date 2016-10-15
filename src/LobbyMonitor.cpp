@@ -39,10 +39,12 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
     mutex.unlock();
 
     if (freeTables == 0) {
-		LOGGER << "Releasing client in the lobby" << logger::endl;
+		LOGGER << "Releasing client " << clientID <<
+				" in the lobby" << logger::endl;
         lobbyFifo.write(static_cast<const void *>(&clientID), sizeof clientID);
     } else {
-		LOGGER << "Releasing client in the table queue" << logger::endl;
+		LOGGER << "Releasing client " << clientID <<
+				" in the table queue" << logger::endl;
         tableQueueFifo.write(static_cast<const void *>(&clientID),
                              sizeof clientID);
     }
