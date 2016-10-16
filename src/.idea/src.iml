@@ -9,7 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/LobbyMonitor.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Receptionist.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/RandomSleep.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/utils/Mutex.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/utils/Clock.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/LockFile.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/SignalHandler.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/OSException.h" isTestSource="false" />
@@ -21,6 +21,7 @@
       <sourceFolder url="file://$MODULE_DIR$/utils/LockFile.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Semaforo.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Semaphore.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/utils/Clock.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/MyProcess.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Semaforo.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Fifos/FifoRead.cpp" isTestSource="false" />
@@ -29,6 +30,7 @@
       <sourceFolder url="file://$MODULE_DIR$/utils/Fifos/Fifo.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Fifos/FifoRead.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Fifos/FifoWrite.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/utils/Mutex.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/OSException.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/SignalHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DishesQueue.cpp" isTestSource="false" />

@@ -13,9 +13,12 @@
 #define LOGGER                                                                \
     Singleton<logger::Logger>::instance() <<                                  \
     "[" << Singleton<logger::Logger>::instance().getLevelAsString() << "] " <<\
-    "{" __DATE__ " - " __TIME__ " - " <<                                      \
+    "{" __DATE__ " - " __TIME__ << "): "
+
+
+    /*" - " <<                                      \
     Singleton<restoclock::Clock>::instance().getNanosecondsAsString() << "} " \
-    "(" << __FILE__ << ":" << __LINE__ << "): "
+    "(" << __FILE__ << ":" << __LINE__ << "): " */
 
 namespace logger {
 

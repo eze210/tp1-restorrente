@@ -22,7 +22,7 @@ private:
 public:
     static void loadConfig();
     static int getReceptionistsCount();
-    static int getWaitersCount();
+    static uint32_t getWaitersCount();
     static int getTablesCount();
     static std::vector<Food>& getAvailableFoods();
 };

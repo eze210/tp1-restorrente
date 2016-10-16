@@ -51,7 +51,7 @@ int Config::getReceptionistsCount() {
     return receptionists;
 }
 
-int Config::getWaitersCount() {
+uint32_t Config::getWaitersCount() {
     return waiters;
 }
 

@@ -7,6 +7,7 @@
 #include <vector>
 #include <utils/Semaphore.h>
 #include <processes/Waiter.h>
+#include <utils/Logger.h>
 
 #define CLIENTS_COUNT 10
 
@@ -37,6 +38,7 @@ int main(int argc, char** argv) {
 			Receptionist(door));
 
 	WaitersQueue waitersQueue;
+
 	std::vector<Table> tables(
 			Config::getTablesCount(), Table(waitersQueue));
 
