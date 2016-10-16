@@ -32,4 +32,22 @@ namespace logger {
         return levelTags[logLevel];
     }
 
+    /**
+     *
+     */
+    Logger::ConditionallyUnlockedScope
+          ::ConditionallyUnlockedScope(LockFile &lock, bool unlock) :
+            lock(lock),
+            unlock(unlock) {
+        lock.tomarLock();
+    }
+
+    /**
+     *
+     */
+    Logger::ConditionallyUnlockedScope::~ConditionallyUnlockedScope() {
+        if (unlock)
+            lock.liberarLock();
+    }
+
 }

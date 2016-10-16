@@ -3,6 +3,7 @@ project(restorrente)
 
 #sets compile flags
 set(CMAKE_CXX_FLAGS "--coverage -fprofile-arcs -ftest-coverage -std=c++0x -O0 -ggdb -Wall -Werror -pedantic ${CMAKE_CXX_FLAGS}")
+set(CMAKE_SHARED_LINKER_FLAGS "-lrt")
 
 set (CMAKE_SHARED_LINKER_FLAGS "-lrt")
 
