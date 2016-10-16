@@ -1,6 +1,7 @@
 #include "Clock.h"
 
 #include <time.h>
+#include <string>
 #include <sstream>
 
 namespace restoclock {

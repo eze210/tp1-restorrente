@@ -35,7 +35,8 @@ namespace logger {
     /**
      *
      */
-    Logger::ConditionallyUnlockedScope::ConditionallyUnlockedScope(LockFile &lock, bool unlock) :
+    Logger::ConditionallyUnlockedScope
+          ::ConditionallyUnlockedScope(LockFile &lock, bool unlock) :
             lock(lock),
             unlock(unlock) {
         lock.tomarLock();

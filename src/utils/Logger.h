@@ -14,7 +14,7 @@
     Singleton<logger::Logger>::instance() <<                                  \
     "[" << Singleton<logger::Logger>::instance().getLevelAsString() << "] " <<\
     "{" __DATE__ " - " __TIME__ " - " <<                                      \
-    Singleton<restoclock::Clock>::instance().getNanosecondsAsString() << "} "    \
+    Singleton<restoclock::Clock>::instance().getNanosecondsAsString() << "} " \
     "(" << __FILE__ << ":" << __LINE__ << "): "
 
 namespace logger {
@@ -38,7 +38,6 @@ namespace logger {
 /** Logger class definition. */
     class Logger {
     private:
-
         LogLevel logLevel;
         std::ostream &outputStream;
 
@@ -61,7 +60,7 @@ namespace logger {
             return *this;
         }
 
-        /* The logging lock is only unlocked when given a logger::endl character! */
+        /* Only unlocked when given a logger::endl character! */
         const Logger &operator<<(const char message) const {
         	ConditionallyUnlockedScope(loggingLock, message == logger::endl);
         	outputStream << message;
