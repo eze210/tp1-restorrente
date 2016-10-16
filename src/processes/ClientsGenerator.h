@@ -5,9 +5,12 @@
 
 class ClientsGenerator : public MyProcess {
 public:
-    ClientsGenerator();
+    explicit ClientsGenerator(ClientID clientsCount);
     ~ClientsGenerator();
     int run();
+
+private:
+    ClientID clientsCount;
 };
 
 #endif

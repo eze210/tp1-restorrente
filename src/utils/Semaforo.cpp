@@ -1,6 +1,7 @@
 #include "Semaforo.h"
 #include <string>
 
+
 Semaforo::Semaforo(const std::string &nombre,
                    const int valorInicial) : valorInicial(valorInicial) {
     key_t clave = ftok(nombre.c_str(), 'a');

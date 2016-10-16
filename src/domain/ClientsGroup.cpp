@@ -3,6 +3,9 @@
 #include <vector>
 #include "Food.h"
 #include "Logger.h"
+#include "Order.h"
+#include <random>
+#include <data/Config.h>
 
 const ClientID ClientsGroup::invalidClientID = -1;
 
@@ -30,8 +33,8 @@ void ClientsGroup::eat() {
 			logger::endl;
 }
 
-std::vector<Food> ClientsGroup::getOrder() {
-    return order;
+OrderID ClientsGroup::getOrder() {
+    return rand() % Config::getAvailableFoods().size();
 }
 
 float ClientsGroup::getTotalCost() {

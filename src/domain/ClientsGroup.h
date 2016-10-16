@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "Food.h"
+#include "Order.h"
 #include <cstdint>
 
 typedef uint32_t ClientID;
@@ -21,7 +22,7 @@ public:
     ClientsGroup& addOrder(Food food);
     const ClientsGroup& addOrder(Food food) const;
     void eat();
-    std::vector<Food> getOrder();
+    OrderID getOrder();
     float getTotalCost();
     const char *serialize();
     bool isValid();
