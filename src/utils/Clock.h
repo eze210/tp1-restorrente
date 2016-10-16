@@ -7,8 +7,8 @@ namespace restoclock {
 
     class Clock {
     public:
-    	const long getNanoseconds() const;
-	    const std::string getNanosecondsAsString() const;
+        const long getNanoseconds() const;
+        const std::string getNanosecondsAsString() const;
     };
 
 }
