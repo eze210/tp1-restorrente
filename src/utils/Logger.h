@@ -8,12 +8,16 @@
 
 #include <iostream>
 #include <string>
+#include <chrono>
+#include <sys/time.h>
 
 /** Useful macro to use C useful macros. */
-#define LOGGER                                                                \
-    Singleton<logger::Logger>::instance() <<                                  \
-    "[" << Singleton<logger::Logger>::instance().getLevelAsString() << "] " <<\
-    "{" __DATE__ " - " __TIME__ << "): "
+#define LOGGER                                                                 \
+    Singleton<logger::Logger>::instance() <<                                   \
+    "[" << Singleton<logger::Logger>::instance().getLevelAsString() << "] "    \
+    "{" <<  __TIME__ << " - " << Singleton<restoclock::Clock>::instance().getNanosecondsAsString() << "}: "
+/*<<\
+"{" __DATE__ " - " __TIME__ << "): "*/
 
 
     /*" - " <<                                      \
@@ -22,7 +26,7 @@
 
 namespace logger {
 
-    static const char *LOG_FILE = "/tmp/restorrente.log";
+    static const char *LOG_FILE = "./restorrente.log";
     static LockFile loggingLock(LOG_FILE);
 
 /** Possible logging levels. */
@@ -58,15 +62,18 @@ namespace logger {
 
         template<typename T>
         const Logger &operator<<(const T &message) const {
-        	ConditionallyUnlockedScope(loggingLock, false);
+            struct timeval tv;
+            struct timezone tz;
+            gettimeofday(&tv, &tz);
+            ConditionallyUnlockedScope(loggingLock, false);
             outputStream << message;
             return *this;
         }
 
         /* Only unlocked when given a logger::endl character! */
         const Logger &operator<<(const char message) const {
-        	ConditionallyUnlockedScope(loggingLock, message == logger::endl);
-        	outputStream << message;
+            ConditionallyUnlockedScope(loggingLock, message == logger::endl);
+            outputStream << message;
         	return *this;
         }
 

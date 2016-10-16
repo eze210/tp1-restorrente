@@ -6,6 +6,8 @@
 #include "Order.h"
 #include <random>
 #include <data/Config.h>
+#include <ctime>
+#include <chrono>
 
 const ClientID ClientsGroup::invalidClientID = -1;
 
@@ -34,7 +36,12 @@ void ClientsGroup::eat() {
 }
 
 OrderID ClientsGroup::getOrder() {
-    return rand() % Config::getAvailableFoods().size();
+    srand(time(NULL));
+    sleep(0.5);
+    long t = std::chrono::duration_cast<std::chrono::microseconds>
+            (std::chrono::steady_clock::now().time_since_epoch()).count();
+    OrderID order = (rand() + t) % Config::getAvailableFoods().size();
+    return order;
 }
 
 float ClientsGroup::getTotalCost() {

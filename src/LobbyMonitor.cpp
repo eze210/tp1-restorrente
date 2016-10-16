@@ -65,11 +65,11 @@ ClientsGroup LobbyMonitor::getClients() {
         numberOfClientsInLobby.write(clientsInLobby - 1);
         mutex.unlock();
         lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
-		LOGGER << "Getting a client from lobby" << logger::endl;
+		LOGGER << "Getting client " << clientID << " from lobby" << logger::endl;
     } else {
         mutex.unlock();
         tableQueueFifo.read(static_cast<void *>(&clientID), sizeof clientID);
-		LOGGER << "Getting a client from the table queue" << logger::endl;
+		LOGGER << "Getting client " << clientID << " from the table queue" << logger::endl;
     }
 
     return ClientsGroup(clientID);

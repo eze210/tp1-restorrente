@@ -18,6 +18,7 @@ int Table::run() {
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
 			orderToWaiter(clients, waiter);
+			waitForPreparedDish(clients, waiter);
 			clients.eat();
 			LOGGER << "The clients " << clients.getID() <<
 					" are finished eating" << logger::endl;
@@ -32,14 +33,14 @@ int Table::run() {
 
 void Table::orderToWaiter(ClientsGroup clients, Waiter& waiter) {
 	LOGGER << "The clients " << clients.getID() <<
-			" are served by waiter" << waiter.getID() << logger::endl;
+			" are served by waiter " << waiter.getID() << logger::endl;
 	waiter.addOrder(clients.getID(), clients.getOrder());
 	waitersQueue.addWaiter(waiter.getID());
 }
 
 void Table::waitForPreparedDish(ClientsGroup clients, Waiter& waiter) {
 	LOGGER << "The clients " << clients.getID() <<
-			" are waiting for the dish" << logger::endl;
+			" are waiting for the dish " << logger::endl;
 	waiter.getDish(clients.getID());
 	LOGGER << "The clients " << clients.getID() <<
 			" are received the dish" << logger::endl;

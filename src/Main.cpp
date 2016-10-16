@@ -9,7 +9,7 @@
 #include <processes/Waiter.h>
 #include <utils/Logger.h>
 
-#define CLIENTS_COUNT 10
+#define CLIENTS_COUNT 2
 
 
 void printConf() {

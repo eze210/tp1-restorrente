@@ -3,6 +3,7 @@
 //
 
 #include <zconf.h>
+#include <utils/Logger.h>
 #include "Kitchen.h"
 #include "OrdersQueue.h"
 #include "DishesQueue.h"
@@ -20,11 +21,14 @@ int Kitchen::run() {
 void Kitchen::prepareOrder(OrderID order) {
     mutex.lock();
         orders.push_back(order);
+        LOGGER << "Kitchen received order " << order << logger::endl;
     mutex.unlock();
 
     mutex.lock();
+        LOGGER << "Kitchen preparing order " << order << logger::endl;
         sleep(5);
         OrderID orderPrepared = orders.front();
+        LOGGER << "Kitchen, order " << order << " prepared, sending to waiter" << logger::endl;
         DishesQueue::getInstance().addPreparedDish(orderPrepared);
     mutex.unlock();
 }
