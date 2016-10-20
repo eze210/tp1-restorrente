@@ -126,3 +126,16 @@ LobbyMonitor &LobbyMonitor::getInstance() {
     static LobbyMonitor instance;
     return instance;
 }
+
+void LobbyMonitor::clear() {
+    static FifoRead lobbyFifo(lobbyFifoName);
+    ClientID clientID;
+    size_t clientsInLobby = numberOfClientsInLobby.read();
+    LOGGER << "Evacuating lobby" << logger::endl;
+    while (clientsInLobby > 0) {
+        numberOfClientsInLobby.write(clientsInLobby - 1);
+        mutex.unlock();
+        lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
+        clientsInLobby = numberOfClientsInLobby.read();
+    }
+}

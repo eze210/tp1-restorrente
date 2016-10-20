@@ -30,6 +30,7 @@ public:
     void decreaseFreeTables();
     void release();
     static LobbyMonitor &getInstance();
+    void clear();
 };
 
 #endif

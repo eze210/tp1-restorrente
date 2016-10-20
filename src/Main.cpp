@@ -100,6 +100,7 @@ int main(int argc, char** argv) {
 		LobbyMonitor::getInstance().release();
 		caja.free();
 		dineroPorCobrar.free();
+		exit(0);
 	}
 	catch(const std::exception& e) {
 		LOGGER << "Exception catched: " << e.what() << logger::endl;

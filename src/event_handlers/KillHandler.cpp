@@ -17,13 +17,12 @@ KillHandler::KillHandler(SharedMemory<int>& laCaja, SharedMemory<int>& loNoCobra
 int KillHandler::handleSignal(int signalNumber) {
     caja.create(cajaMem,1);
     dineroPorCobrar.create(noCobradoMem,2);
-    LOGGER << "KILL---------------" << signalNumber <<logger::endl;
     if (signalNumber == SIGINT) {
+        LOGGER << "KILL---------------" << signalNumber <<logger::endl;
         LOGGER << "SE PRODUJO UN CORTE DE LUZ" << logger::endl;
         LOGGER << "DINERO EN CAJA: " << caja.read() << logger::endl;
         LOGGER << "DINERO SIN COBRAR: " << dineroPorCobrar.read() << logger::endl;
-        caja.free();
-        dineroPorCobrar.free();
+        LobbyMonitor::getInstance().clear();
         exit(0);
     }
     return 0;

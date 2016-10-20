@@ -41,7 +41,7 @@ static long int randomPercentage() {
 }
 
 bool ClientsGroup::hungry() {
-	const static long int hungryProbability = 50;
+	const static long int hungryProbability = 10;
 	return randomPercentage() < hungryProbability;
 }
 

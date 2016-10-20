@@ -29,7 +29,7 @@ int Table::run() {
 					" are in their table" << logger::endl;
 			int noCobrado = 0;
 			int costoDePlato = 0;
-			do {
+			//do {
 				uint32_t waiterID = waitersQueue.getWaiter();
 				Waiter waiter(waiterID, kitchen);
 				costoDePlato = Config::getAvailableFoods().at(clients.getOrder()).getCost();
@@ -40,7 +40,7 @@ int Table::run() {
 
 				waitForPreparedDish(clients, waiter);
 				clients.eat();
-			} while (clients.hungry());
+			//} while (clients.hungry());
 
 
 			LOGGER << "The clients " << clients.getID() <<
@@ -79,4 +79,5 @@ void Table::waitForPreparedDish(ClientsGroup clients, Waiter& waiter) {
 
 
 Table::~Table() {
+
 }

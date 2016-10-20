@@ -2,8 +2,8 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/OrdersQueue.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Door.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RandomSleep.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Table.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Kitchen.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LobbyMonitor.cpp" isTestSource="false" />
@@ -35,8 +35,9 @@
       <sourceFolder url="file://$MODULE_DIR$/utils/SignalHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DishesQueue.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WaitersQueue.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/OrdersQueue.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Kitchen.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/OrdersQueue.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/RandomSleep.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Receptionist.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WaitersQueue.h" isTestSource="false" />
@@ -44,15 +45,13 @@
       <sourceFolder url="file://$MODULE_DIR$/data/Config.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Receptionist.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Table.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/processes/ClientsGenerator.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/processes/ClientsGenerator.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/processes/Waiter.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/processes/ClientsGenerator.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/processes/Waiter.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/processes/ClientsGenerator.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/ej1-shared-mem.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/event_handlers/TableKillHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/event_handlers/KillHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/event_handlers/KillHandler.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/event_handlers/TableKillHandler.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Door.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/Food.h" isTestSource="false" />
@@ -60,7 +59,6 @@
       <sourceFolder url="file://$MODULE_DIR$/domain/Food.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/ClientsGroup.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LobbyMonitor.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Kitchen.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

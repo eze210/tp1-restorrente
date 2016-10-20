@@ -27,6 +27,7 @@ WaitersQueue::WaitersQueue() : waiterFifo(waiterFifoName),
             LOGGER << "Adding waiter " << i << logger::endl;
             this->addWaiter(i);
         }
+        exit(0);
     }
 }
 
