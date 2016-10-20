@@ -95,17 +95,23 @@ int main(int argc, char** argv) {
 		/* waits children */
 		generator.wait();
 		for (Receptionist &recepcionist : recepcionists) {
+			LOGGER << "LIBERANDO RECEPCIONISTA" << logger::endl;
 			recepcionist.wait();
 		}
+
+
 		for (Table &table : tables) {
+			LOGGER << "LIBERANDO MESA" << logger::endl;
 			table.wait();
 		}
 
-
+		LOGGER << "LIBERANDO DOOR" << logger::endl;
 		door.releaseFifo();
+		LOGGER << "LIBERANDO LOBBY MONITOR" << logger::endl;
 		LobbyMonitor::getInstance().release();
 		caja.free();
 		dineroPorCobrar.free();
+		LOGGER << "EL RESTORRENTE TERMINO CORRECTAMENTE" << logger::endl;
 		exit(0);
 	}
 	catch(const std::exception& e) {

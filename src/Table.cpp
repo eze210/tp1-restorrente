@@ -20,7 +20,7 @@ Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
 }
 
 int Table::run() {
-	while (LobbyMonitor::getInstance().isAlive()) {
+	while ((LobbyMonitor::getInstance().isAlive()) && (keepAlive)){
 		try {
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();
 			//OrderID order = clients.getOrder();
