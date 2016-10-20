@@ -5,7 +5,6 @@
 #include <utils/Mutex.h>
 #include <utils/LockFile.h>
 #include <utils/SharedMemory.h>
-#include <event_handlers/TableKillHandler.h>
 #include "MyProcess.h"
 #include "WaitersQueue.h"
 #include "Waiter.h"

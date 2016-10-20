@@ -72,10 +72,6 @@ int main(int argc, char** argv) {
 		std::vector<Table> tables(
 				Config::getTablesCount(), Table(waitersQueue, kitchen));
 
-		KillHandler handler(caja, dineroPorCobrar);
-		SignalHandler::getInstance().registerHandler(SIGINT, &handler);
-
-
 		/* forks all processes */
 		for (Receptionist &recepcionist : recepcionists) {
 			recepcionist.start();
@@ -84,6 +80,11 @@ int main(int argc, char** argv) {
 		for (Table &table : tables) {
 			table.start();
 		}
+
+
+		KillHandler handler(caja, dineroPorCobrar);
+		SignalHandler::getInstance().registerHandler(SIGINT, &handler);
+
 
 		/* waits children */
 		generator.wait();

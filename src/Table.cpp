@@ -6,7 +6,6 @@
 #include "LobbyMonitor.h"
 #include "Logger.h"
 #include "Kitchen.h"
-#include "event_handlers/TableKillHandler.h"
 
 #define SIGNAL_KILL 2
 const static std::string cajaMem("caja.mem");
