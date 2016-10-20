@@ -13,7 +13,6 @@ int Table::run() {
 	while (keepAlive) {
 		try {
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();
-			LobbyMonitor::getInstance().decreaseFreeTables();
 			//OrderID order = clients.getOrder();
 			// For calculating the cost
 			LOGGER << "The clients " << clients.getID() <<

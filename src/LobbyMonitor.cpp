@@ -60,6 +60,7 @@ ClientsGroup LobbyMonitor::getClients() {
 
 	ClientID clientID;
     mutex.lock();
+    numberOfFreeTables.write(numberOfFreeTables.read() - 1);
     size_t clientsInLobby = numberOfClientsInLobby.read();
     if (clientsInLobby > 0) {
         numberOfClientsInLobby.write(clientsInLobby - 1);
