@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 		std::vector<Table> tables(
 				Config::getTablesCount(), Table(waitersQueue, kitchen));
 
-		KillHandler handler(tables, recepcionists);
+		KillHandler handler(caja, dineroPorCobrar);
 		SignalHandler::getInstance().registerHandler(SIGINT, &handler);
 
 

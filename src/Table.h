@@ -18,7 +18,6 @@ private:
     Kitchen& kitchen;
     void orderToWaiter(ClientsGroup clients, Waiter& waiter);
     void waitForPreparedDish(ClientsGroup clients, Waiter& waiter);
-    TableKillHandler handler;
     SharedMemory<int> caja;
     SharedMemory<int> dineroPorCobrar;
 public:

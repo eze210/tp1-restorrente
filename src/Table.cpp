@@ -16,7 +16,6 @@ const static std::string noCobradoMutexName("no-cobrado.mutex");
 
 Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
 		keepAlive(true), waitersQueue(waitersQ), kitchen(theKitchen) {
-	SignalHandler::getInstance().registerHandler(SIGINT, &handler);
 	caja.create(cajaMem,1);
 	dineroPorCobrar.create(noCobradoMem,2);
 }

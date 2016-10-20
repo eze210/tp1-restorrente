@@ -12,13 +12,13 @@
 
 class KillHandler : public EventHandler {
 public:
-    KillHandler(vector<Table>& tables, vector<Receptionist>& receptionists);
+    KillHandler(SharedMemory<int>& caja, SharedMemory<int>& noCobrado);
     int handleSignal(int signalNumber);
     ~KillHandler();
 
 private:
-    vector<Table>& tables;
-    vector<Receptionist>& receptionists;
+    SharedMemory<int>& caja;
+    SharedMemory<int>& dineroPorCobrar;
 };
 
 
