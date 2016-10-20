@@ -37,6 +37,10 @@ int MyProcess::wait() {
     return WEXITSTATUS(status);
 }
 
+void MyProcess::receiveSignal(int signal) {
+    raise(signal);
+}
+
 
 /** Virtual default destructor.
  */

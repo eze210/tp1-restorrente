@@ -1,12 +1,24 @@
 #include <domain/Order.h>
 #include <processes/Waiter.h>
+#include <utils/SignalHandler.h>
+#include <data/Config.h>
 #include "Table.h"
 #include "LobbyMonitor.h"
 #include "Logger.h"
 #include "Kitchen.h"
+#include "event_handlers/TableKillHandler.h"
+
+#define SIGNAL_KILL 2
+const static std::string cajaMem("caja.mem");
+const static std::string noCobradoMem("no-cobrado.mem");
+const static std::string cajaMutexName("caja.mutex");
+const static std::string noCobradoMutexName("no-cobrado.mutex");
 
 Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
 		keepAlive(true), waitersQueue(waitersQ), kitchen(theKitchen) {
+	SignalHandler::getInstance().registerHandler(SIGINT, &handler);
+	caja.create(cajaMem,1);
+	dineroPorCobrar.create(noCobradoMem,2);
 }
 
 int Table::run() {
@@ -20,11 +32,21 @@ int Table::run() {
 			Waiter waiter(waiterID, kitchen);
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
+			int costoDePlato = Config::getAvailableFoods().at(clients.getOrder()).getCost();
 			orderToWaiter(clients, waiter);
+
+			int noCobrado = dineroPorCobrar.read();
+			dineroPorCobrar.write(noCobrado + costoDePlato);
+
 			waitForPreparedDish(clients, waiter);
 			clients.eat();
 			LOGGER << "The clients " << clients.getID() <<
 					" are finished eating" << logger::endl;
+
+			int dineroEnCaja = caja.read();
+			noCobrado = dineroPorCobrar.read();
+			dineroPorCobrar.write(noCobrado - costoDePlato);
+			caja.write(dineroEnCaja + costoDePlato);
 		}
 		catch (const OSException& ex){
 			keepAlive = false;
@@ -40,6 +62,8 @@ void Table::orderToWaiter(ClientsGroup clients, Waiter& waiter) {
 			" are served by waiter " << waiter.getID() << logger::endl;
 	waiter.addOrder(clients.getID(), clients.getOrder());
 	waitersQueue.addWaiter(waiter.getID());
+
+
 }
 
 void Table::waitForPreparedDish(ClientsGroup clients, Waiter& waiter) {

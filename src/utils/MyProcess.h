@@ -10,6 +10,7 @@ public:
     void start();
     int wait();
     virtual int run() = 0;
+    void receiveSignal(int signal);
     virtual ~MyProcess();
 };
 

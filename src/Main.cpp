@@ -8,10 +8,19 @@
 #include <utils/Semaphore.h>
 #include <processes/Waiter.h>
 #include <utils/Logger.h>
+#include <utils/SignalHandler.h>
+#include <event_handlers/KillHandler.h>
 
 #define CLIENTS_COUNT 2
 
 const static std::string kitchenMutexName("Kitchen.cpp");
+const static std::string cajaMem("caja.mem");
+const static std::string noCobradoMem("no-cobrado.mem");
+const static std::string cajaMutexName("caja.mutex");
+const static std::string noCobradoMutexName("no-cobrado.mutex");
+
+#define SIGNAL_KILL 2
+
 
 void printConf() {
 	std::cout <<
@@ -30,6 +39,23 @@ int main(int argc, char** argv) {
 		Config::loadConfig();
 		printConf();
 
+
+		SharedMemory<int> caja(cajaMem, 1);
+		LOGGER << "LLEGAAAA" << logger::endl;
+		Mutex cajaMutex(cajaMutexName);
+
+
+		SharedMemory<int> dineroPorCobrar(noCobradoMem,2);
+		Mutex noCobradoMutex(noCobradoMutexName);
+
+		cajaMutex.lock();
+		caja.write(0);
+		cajaMutex.unlock();
+
+		noCobradoMutex.lock();
+		dineroPorCobrar.write(0);
+		noCobradoMutex.unlock();
+
 		for (ssize_t i = 0; i < Config::getTablesCount(); ++i)
 			LobbyMonitor::getInstance().increaseFreeTables();
 
@@ -45,6 +71,9 @@ int main(int argc, char** argv) {
 		Kitchen kitchen(lockFile);
 		std::vector<Table> tables(
 				Config::getTablesCount(), Table(waitersQueue, kitchen));
+
+		KillHandler handler(tables, recepcionists);
+		SignalHandler::getInstance().registerHandler(SIGINT, &handler);
 
 
 		/* forks all processes */
@@ -68,6 +97,8 @@ int main(int argc, char** argv) {
 
 		door.releaseFifo();
 		LobbyMonitor::getInstance().release();
+		caja.free();
+		dineroPorCobrar.free();
 	}
 	catch(const std::exception& e) {
 		LOGGER << "Exception catched: " << e.what() << logger::endl;

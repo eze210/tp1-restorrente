@@ -4,6 +4,8 @@
 #include <domain/ClientsGroup.h>
 #include <utils/Mutex.h>
 #include <utils/LockFile.h>
+#include <utils/SharedMemory.h>
+#include <event_handlers/TableKillHandler.h>
 #include "MyProcess.h"
 #include "WaitersQueue.h"
 #include "Waiter.h"
@@ -16,6 +18,9 @@ private:
     Kitchen& kitchen;
     void orderToWaiter(ClientsGroup clients, Waiter& waiter);
     void waitForPreparedDish(ClientsGroup clients, Waiter& waiter);
+    TableKillHandler handler;
+    SharedMemory<int> caja;
+    SharedMemory<int> dineroPorCobrar;
 public:
     explicit Table(WaitersQueue& waitersQueue, Kitchen& theKitchen);
     int run();
