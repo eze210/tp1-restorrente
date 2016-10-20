@@ -21,6 +21,7 @@ LobbyMonitor::LobbyMonitor() :
 		tableQueueFifo(tableQueueFifoName) {
 	numberOfClientsInLobby.write(0);
 	numberOfClientsInLobby.write(0);
+    alive = true;
 }
 
 
@@ -141,4 +142,9 @@ void LobbyMonitor::clear() {
         lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
         clientsInLobby = numberOfClientsInLobby.read();
     }
+    alive = false;
+}
+
+bool LobbyMonitor::isAlive() {
+    return alive;
 }

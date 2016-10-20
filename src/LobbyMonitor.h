@@ -20,6 +20,7 @@ private:
     Fifo tableQueueFifo;
 
     LobbyMonitor();
+    bool alive;
 
 public:
     size_t getNumberOfClientsInLobby();
@@ -31,6 +32,7 @@ public:
     void release();
     static LobbyMonitor &getInstance();
     void clear();
+    bool isAlive();
 };
 
 #endif

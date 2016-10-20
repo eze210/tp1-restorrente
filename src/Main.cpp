@@ -10,6 +10,8 @@
 #include <utils/Logger.h>
 #include <utils/SignalHandler.h>
 #include <event_handlers/KillHandler.h>
+#include <event_handlers/ProcesesKillHandler.h>
+
 
 #define CLIENTS_COUNT 2
 
@@ -71,6 +73,10 @@ int main(int argc, char** argv) {
 		Kitchen kitchen(lockFile);
 		std::vector<Table> tables(
 				Config::getTablesCount(), Table(waitersQueue, kitchen));
+
+
+		ProcesesKillHandler procesesKillHandler;
+		SignalHandler::getInstance().registerHandler(SIGINT, &procesesKillHandler);
 
 		/* forks all processes */
 		for (Receptionist &recepcionist : recepcionists) {
