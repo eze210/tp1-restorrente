@@ -25,21 +25,26 @@ int Table::run() {
 	while (keepAlive) {
 		try {
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();
-			LobbyMonitor::getInstance().decreaseFreeTables();
 			//OrderID order = clients.getOrder();
 			// For calculating the cost
-			uint32_t waiterID = waitersQueue.getWaiter();
-			Waiter waiter(waiterID, kitchen);
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
-			int costoDePlato = Config::getAvailableFoods().at(clients.getOrder()).getCost();
-			orderToWaiter(clients, waiter);
+			int noCobrado = 0;
+			int costoDePlato = 0;
+			do {
+				uint32_t waiterID = waitersQueue.getWaiter();
+				Waiter waiter(waiterID, kitchen);
+				costoDePlato = Config::getAvailableFoods().at(clients.getOrder()).getCost();
+				orderToWaiter(clients, waiter);
 
-			int noCobrado = dineroPorCobrar.read();
-			dineroPorCobrar.write(noCobrado + costoDePlato);
+				noCobrado = dineroPorCobrar.read();
+				dineroPorCobrar.write(noCobrado + costoDePlato);
 
-			waitForPreparedDish(clients, waiter);
-			clients.eat();
+				waitForPreparedDish(clients, waiter);
+				clients.eat();
+			} while (clients.hungry());
+
+
 			LOGGER << "The clients " << clients.getID() <<
 					" are finished eating" << logger::endl;
 
