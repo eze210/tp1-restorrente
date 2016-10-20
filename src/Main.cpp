@@ -58,9 +58,6 @@ int main(int argc, char** argv) {
 		dineroPorCobrar.write(0);
 		noCobradoMutex.unlock();
 
-		for (ssize_t i = 0; i < Config::getTablesCount(); ++i)
-			LobbyMonitor::getInstance().increaseFreeTables();
-
 		Door door;
 		ClientsGenerator generator(CLIENTS_COUNT);
 		generator.start();
