@@ -8,6 +8,7 @@
 #include "WaitersQueue.h"
 #include <string>
 #include <utils/Logger.h>
+#include <sys/wait.h>
 
 /** Name to represent the fifo in the file system. */
 const static std::string waiterFifoName("waiter.fifo");
@@ -19,8 +20,9 @@ const static std::string waiterSemName("waiter.semaphore");
 WaitersQueue::WaitersQueue() : waiterFifo(waiterFifoName),
                                waiterSemaphore(waiterSemName,
                                Config::getReceptionistsCount()) {
-    pid_t pid = fork();
-    if (pid == 0) {
+    pid_t thePid = fork();
+    if (thePid == 0) {
+        pid = thePid;
         for (uint32_t i = 0; i < Config::getWaitersCount(); i++) {
             LOGGER << "Adding waiter " << i << logger::endl;
             this->addWaiter(i);
@@ -29,6 +31,8 @@ WaitersQueue::WaitersQueue() : waiterFifo(waiterFifoName),
 }
 
 WaitersQueue::~WaitersQueue() {
+    int status;
+    waitpid(pid, &status, 0);
     waiterSemaphore.erase();
     waiterFifo.release();
 }

@@ -7,29 +7,27 @@
 #include <data/Config.h>
 #include <OrdersQueue.h>
 #include <DishesQueue.h>
+#include <Kitchen.h>
 #include "Waiter.h"
-Waiter::Waiter(uint32_t waiterID) : id(waiterID) {
+Waiter::Waiter(uint32_t waiterID, Kitchen& theKitchen) : id(waiterID), kitchen(theKitchen) {
 }
 
 void Waiter::addOrder(uint32_t tableID, OrderID order) {
     LOGGER << "Waiter " << id << " receiving the order " <<
     order << " from clients " << tableID << logger::endl;
 
-    OrdersQueue::getInstance().addNewOrder(order);
+    kitchen.prepareOrder(order);
+    //OrdersQueue::getInstance().addNewOrder(order);
     LOGGER << "Waiter " << id << " sent order " <<
     order << " to kitchen" << logger::endl;
-    {
-        /* NOT SYNC! just simulates time to take the clients
-         * to lobby or to table */
-        sleep(1);
-    }
 }
 
 OrderID Waiter::getDish(uint32_t tableID) {
     LOGGER << "Waiter " << id << " waiting for the order of clients " <<
             tableID << " to be prepared " << logger::endl;
 
-    OrderID order = DishesQueue::getInstance().getPreparedDish();
+    //OrderID order = DishesQueue::getInstance().getPreparedDish();
+    OrderID order = kitchen.getPreparedOrder();
     LOGGER << "Waiter " << id << " received the dish " <<
             order << " from the kitchen." << logger::endl;
     LOGGER << "Waiter " << id << " serving the dish to clients " <<

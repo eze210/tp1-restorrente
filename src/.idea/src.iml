@@ -2,12 +2,12 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/OrdersQueue.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Door.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/RandomSleep.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Receptionist.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Table.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LobbyMonitor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LobbyMonitor.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Receptionist.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/DishesQueue.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/RandomSleep.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Clock.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/LockFile.h" isTestSource="false" />
@@ -34,10 +34,12 @@
       <sourceFolder url="file://$MODULE_DIR$/utils/OSException.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/SignalHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DishesQueue.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Receptionist.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WaitersQueue.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Table.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Kitchen.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/OrdersQueue.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/DishesQueue.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/RandomSleep.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Receptionist.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WaitersQueue.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/data/Config.h" isTestSource="false" />
@@ -51,13 +53,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Kitchen.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Door.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/domain/Order.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/Food.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/ClientsGroup.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/Food.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/ClientsGroup.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Kitchen.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/OrdersQueue.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

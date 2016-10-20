@@ -11,6 +11,7 @@
 
 #define CLIENTS_COUNT 2
 
+const static std::string kitchenMutexName("Kitchen.cpp");
 
 void printConf() {
 	std::cout <<
@@ -40,13 +41,11 @@ int main(int argc, char** argv) {
 				Receptionist(door));
 
 		WaitersQueue waitersQueue;
-
+		LockFile lockFile(kitchenMutexName);
+		Kitchen kitchen(lockFile);
 		std::vector<Table> tables(
-				Config::getTablesCount(), Table(waitersQueue));
+				Config::getTablesCount(), Table(waitersQueue, kitchen));
 
-
-		Kitchen kitchen;
-		kitchen.start();
 
 		/* forks all processes */
 		for (Receptionist &recepcionist : recepcionists) {
@@ -65,7 +64,7 @@ int main(int argc, char** argv) {
 		for (Table &table : tables) {
 			table.wait();
 		}
-		kitchen.wait();
+
 
 		door.releaseFifo();
 		LobbyMonitor::getInstance().release();

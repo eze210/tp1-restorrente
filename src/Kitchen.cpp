@@ -8,27 +8,38 @@
 #include "OrdersQueue.h"
 #include "DishesQueue.h"
 
-Kitchen::Kitchen() : mutex("kitchen.mutex") {
+/*
+Kitchen::Kitchen() : mutex(LockFile("Kitchen.cpp")) {
+}
+*/
+Kitchen::Kitchen(LockFile &lock) : mutex(lock) {
 }
 
 Kitchen::~Kitchen() { }
 
 int Kitchen::run() {
-    prepareOrder(OrdersQueue::getInstance().getOrder());
+    OrderID orderID = OrdersQueue::getInstance().getOrder();
+    while (orderID >= 0) {
+        prepareOrder(orderID);
+        orderID = OrdersQueue::getInstance().getOrder();
+    }
     return 0;
 }
 
 void Kitchen::prepareOrder(OrderID order) {
-    mutex.lock();
+    mutex.tomarLock();
         orders.push_back(order);
         LOGGER << "Kitchen received order " << order << logger::endl;
-    mutex.unlock();
+    mutex.liberarLock();
+}
 
-    mutex.lock();
-        LOGGER << "Kitchen preparing order " << order << logger::endl;
-        sleep(5);
+OrderID Kitchen::getPreparedOrder() {
+    mutex.tomarLock();
         OrderID orderPrepared = orders.front();
-        LOGGER << "Kitchen, order " << order << " prepared, sending to waiter" << logger::endl;
-        DishesQueue::getInstance().addPreparedDish(orderPrepared);
-    mutex.unlock();
+        LOGGER << "Kitchen preparing order " << orderPrepared << logger::endl;
+        sleep(5);
+        LOGGER << "Kitchen, order " << orderPrepared << " prepared, sending to waiter" << logger::endl;
+        //DishesQueue::getInstance().addPreparedDish(orderPrepared);
+    mutex.liberarLock();
+    return orderPrepared;
 }

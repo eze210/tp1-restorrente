@@ -8,10 +8,11 @@
 
 #include <utils/MyProcess.h>
 #include <WaitersQueue.h>
+#include "Kitchen.h"
 
 class Waiter {
 public:
-    explicit Waiter(uint32_t waiterID);
+    explicit Waiter(uint32_t waiterID, Kitchen& theKitchen);
     ~Waiter();
     void addOrder(uint32_t tableID, OrderID order);
     OrderID getDish(uint32_t tableID);
@@ -19,6 +20,7 @@ public:
     uint32_t getID();
 private:
     uint32_t id;
+    Kitchen& kitchen;
 };
 
 

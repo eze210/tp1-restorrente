@@ -3,18 +3,21 @@
 #include "Table.h"
 #include "LobbyMonitor.h"
 #include "Logger.h"
+#include "Kitchen.h"
 
-Table::Table(WaitersQueue& waitersQ) : keepAlive(true), waitersQueue(waitersQ) {
+Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
+		keepAlive(true), waitersQueue(waitersQ), kitchen(theKitchen) {
 }
 
 int Table::run() {
 	while (keepAlive) {
 		try {
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();
+			LobbyMonitor::getInstance().decreaseFreeTables();
 			//OrderID order = clients.getOrder();
 			// For calculating the cost
 			uint32_t waiterID = waitersQueue.getWaiter();
-			Waiter waiter(waiterID);
+			Waiter waiter(waiterID, kitchen);
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
 			orderToWaiter(clients, waiter);
@@ -26,6 +29,7 @@ int Table::run() {
 		catch (const OSException& ex){
 			keepAlive = false;
 		}
+		LobbyMonitor::getInstance().increaseFreeTables();
 	}
 	return 0;
 }

@@ -13,6 +13,7 @@ class WaitersQueue {
 private:
     Fifo waiterFifo;
     Semaphore waiterSemaphore;
+    pid_t pid;
 public:
     WaitersQueue();
     ~WaitersQueue();

@@ -11,19 +11,22 @@
 #include <vector>
 #include <utils/Mutex.h>
 #include <utils/MyProcess.h>
+#include "LockFile.h"
 
 using std::pair;
 using std::vector;
 
-class Kitchen : public MyProcess {
+class Kitchen  {
 public:
-    Kitchen();
+    //Kitchen();
+    Kitchen(LockFile& lock);
     ~Kitchen();
     int run();
     void prepareOrder(OrderID order);
+    OrderID getPreparedOrder();
 private:
     vector<OrderID> orders;
-    Mutex mutex;
+    LockFile& mutex;
 };
 
 
