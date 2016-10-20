@@ -35,6 +35,8 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
     size_t freeTables = numberOfFreeTables.read();
     if (freeTables == 0) {
         numberOfClientsInLobby.write(numberOfClientsInLobby.read() + 1);
+    } else {
+    	decreaseFreeTables();
     }
     mutex.unlock();
 
@@ -48,6 +50,7 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
         tableQueueFifo.write(static_cast<const void *>(&clientID),
                              sizeof clientID);
     }
+
 }
 
 
@@ -60,7 +63,6 @@ ClientsGroup LobbyMonitor::getClients() {
 
 	ClientID clientID;
     mutex.lock();
-    numberOfFreeTables.write(numberOfFreeTables.read() - 1);
     size_t clientsInLobby = numberOfClientsInLobby.read();
     if (clientsInLobby > 0) {
         numberOfClientsInLobby.write(clientsInLobby - 1);
@@ -68,6 +70,7 @@ ClientsGroup LobbyMonitor::getClients() {
         lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
 		LOGGER << "Getting client " << clientID << " from lobby" << logger::endl;
     } else {
+    	increaseFreeTables();
         mutex.unlock();
         tableQueueFifo.read(static_cast<void *>(&clientID), sizeof clientID);
 		LOGGER << "Getting client " << clientID << " from the table queue" << logger::endl;
@@ -88,7 +91,7 @@ size_t LobbyMonitor::getNumberOfClientsInLobby() {
 /** When a table is free, it should take an advice to the monitor.
  */
 void LobbyMonitor::increaseFreeTables() {
-    LockedScope l(mutex);
+    // LockedScope l(mutex);
     numberOfFreeTables.write(numberOfFreeTables.read() + 1);
 }
 
@@ -96,7 +99,7 @@ void LobbyMonitor::increaseFreeTables() {
 /** When a table is busy, it should take an advice to the monitor.
  */
 void LobbyMonitor::decreaseFreeTables() {
-    LockedScope l(mutex);
+    // LockedScope l(mutex);
     numberOfFreeTables.write(numberOfFreeTables.read() - 1);
 }
 
