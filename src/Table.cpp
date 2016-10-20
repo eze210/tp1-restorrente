@@ -54,7 +54,6 @@ int Table::run() {
 		catch (const OSException& ex){
 			keepAlive = false;
 		}
-		LobbyMonitor::getInstance().increaseFreeTables();
 	}
 	return 0;
 }
