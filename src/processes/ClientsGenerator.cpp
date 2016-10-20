@@ -4,6 +4,7 @@
 
 
 ClientsGenerator::ClientsGenerator(ClientID clientsCount) {
+	LOGGER << "Creating a clients generator" << logger::endl;
     this->clientsCount = clientsCount;
 }
 

@@ -14,9 +14,9 @@
 
 void printConf() {
 	std::cout <<
-	"Recepcionistas: " << Config::getReceptionistsCount() <<
-	"\nMozos: " << Config::getWaitersCount() <<
-	"\nMesas: " << Config::getTablesCount() << std::endl;
+			"Recepcionistas: " << Config::getReceptionistsCount() <<
+			"\nMozos: " << Config::getWaitersCount() <<
+			"\nMesas: " << Config::getTablesCount() << std::endl;
 
 	std::vector<Food> foods;
 	foods = Config::getAvailableFoods();
@@ -25,48 +25,54 @@ void printConf() {
 
 
 int main(int argc, char** argv) {
-	Config::loadConfig();
-	printConf();
+	try {
+		Config::loadConfig();
+		printConf();
 
-	for (ssize_t i = 0; i < Config::getTablesCount(); ++i)
-		LobbyMonitor::getInstance().increaseFreeTables();
+		for (ssize_t i = 0; i < Config::getTablesCount(); ++i)
+			LobbyMonitor::getInstance().increaseFreeTables();
 
-	Door door;
-	ClientsGenerator generator(CLIENTS_COUNT);
-	std::vector<Receptionist> recepcionists(
-			Config::getReceptionistsCount(),
-			Receptionist(door));
+		Door door;
+		ClientsGenerator generator(CLIENTS_COUNT);
+		generator.start();
+		std::vector<Receptionist> recepcionists(
+				Config::getReceptionistsCount(),
+				Receptionist(door));
 
-	WaitersQueue waitersQueue;
+		WaitersQueue waitersQueue;
 
-	std::vector<Table> tables(
-			Config::getTablesCount(), Table(waitersQueue));
+		std::vector<Table> tables(
+				Config::getTablesCount(), Table(waitersQueue));
 
-	Kitchen kitchen;
-	kitchen.start();
 
-	/* forks all processes */
-	for (Receptionist &recepcionist : recepcionists) {
-		recepcionist.start();
+		Kitchen kitchen;
+		kitchen.start();
+
+		/* forks all processes */
+		for (Receptionist &recepcionist : recepcionists) {
+			recepcionist.start();
+		}
+
+		for (Table &table : tables) {
+			table.start();
+		}
+
+		/* waits children */
+		generator.wait();
+		for (Receptionist &recepcionist : recepcionists) {
+			recepcionist.wait();
+		}
+		for (Table &table : tables) {
+			table.wait();
+		}
+		kitchen.wait();
+
+		door.releaseFifo();
+		LobbyMonitor::getInstance().release();
 	}
-
-	generator.start();
-	for (Table &table : tables) {
-		table.start();
+	catch(const std::exception& e) {
+		LOGGER << "Exception catched: " << e.what() << logger::endl;
 	}
-
-	/* waits children */
-	generator.wait();
-	for (Receptionist &recepcionist : recepcionists) {
-		recepcionist.wait();
-	}
-	for (Table &table : tables) {
-		table.wait();
-	}
-	door.releaseFifo();
-	LobbyMonitor::getInstance().release();
-	kitchen.wait();
-
 
 	return 0;
 }

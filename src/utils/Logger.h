@@ -14,7 +14,7 @@
 /** Useful macro to use C useful macros. */
 #define LOGGER                                                                 \
     Singleton<logger::Logger>::instance() <<                                   \
-    "[" << Singleton<logger::Logger>::instance().getLevelAsString() << "] "    \
+    "[" << Singleton<logger::Logger>::instance().getLevelAsString() << getpid() << "] "    \
     "{" <<  __TIME__ << " - " << Singleton<restoclock::Clock>::instance().getNanosecondsAsString() << "}: "
 /*<<\
 "{" __DATE__ " - " __TIME__ << "): "*/

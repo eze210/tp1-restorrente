@@ -20,7 +20,7 @@ endforeach ()
 list(REMOVE_DUPLICATES DIRS)
 include_directories(${DIRS})
 
-add_executable(restorrente ${SOURCES} processes/Waiter.cpp processes/Waiter.h domain/Order.h utils/Semaphore.h utils/Semaphore.cpp OrdersQueue.cpp OrdersQueue.h Kitchen.cpp Kitchen.h WaitersQueue.cpp WaitersQueue.h DishesQueue.cpp DishesQueue.h)
+add_executable(restorrente ${SOURCES})
 set_target_properties(restorrente PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(restorrente)
