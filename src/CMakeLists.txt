@@ -20,7 +20,7 @@ endforeach ()
 list(REMOVE_DUPLICATES DIRS)
 include_directories(${DIRS})
 
-add_executable(restorrente ${SOURCES} event_handlers/KillHandler.cpp event_handlers/KillHandler.h)
+add_executable(restorrente ${SOURCES} event_handlers/KillHandler.cpp event_handlers/KillHandler.h processes/Manager.cpp processes/Manager.h)
 set_target_properties(restorrente PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(restorrente)

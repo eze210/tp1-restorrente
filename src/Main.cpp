@@ -11,6 +11,7 @@
 #include <utils/SignalHandler.h>
 #include <event_handlers/KillHandler.h>
 #include <event_handlers/ProcesesKillHandler.h>
+#include <processes/Manager.h>
 
 
 #define CLIENTS_COUNT 2
@@ -78,6 +79,9 @@ int main(int argc, char** argv) {
 		ProcesesKillHandler procesesKillHandler;
 		SignalHandler::getInstance().registerHandler(SIGINT, &procesesKillHandler);
 
+		Manager manager;
+		manager.start();
+
 		/* forks all processes */
 		for (Receptionist &recepcionist : recepcionists) {
 			recepcionist.start();
@@ -86,7 +90,6 @@ int main(int argc, char** argv) {
 		for (Table &table : tables) {
 			table.start();
 		}
-
 
 		KillHandler handler(caja, dineroPorCobrar);
 		SignalHandler::getInstance().registerHandler(SIGINT, &handler);
@@ -105,6 +108,7 @@ int main(int argc, char** argv) {
 			table.wait();
 		}
 
+		manager.wait();
 		LOGGER << "LIBERANDO DOOR" << logger::endl;
 		door.releaseFifo();
 		LOGGER << "LIBERANDO LOBBY MONITOR" << logger::endl;
