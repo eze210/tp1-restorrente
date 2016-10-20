@@ -35,6 +35,16 @@ void ClientsGroup::eat() {
 			logger::endl;
 }
 
+static long int randomPercentage() {
+    srand(getpid());
+    return (rand() % 100);
+}
+
+bool ClientsGroup::hungry() {
+	const static long int hungryProbability = 50;
+	return randomPercentage() < hungryProbability;
+}
+
 OrderID ClientsGroup::getOrder() {
     srand(time(NULL));
     sleep(0.5);

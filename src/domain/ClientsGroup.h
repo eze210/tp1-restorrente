@@ -22,6 +22,7 @@ public:
     ClientsGroup& addOrder(Food food);
     const ClientsGroup& addOrder(Food food) const;
     void eat();
+    bool hungry();
     OrderID getOrder();
     float getTotalCost();
     const char *serialize();

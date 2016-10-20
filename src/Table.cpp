@@ -16,13 +16,15 @@ int Table::run() {
 			LobbyMonitor::getInstance().decreaseFreeTables();
 			//OrderID order = clients.getOrder();
 			// For calculating the cost
-			uint32_t waiterID = waitersQueue.getWaiter();
-			Waiter waiter(waiterID, kitchen);
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
-			orderToWaiter(clients, waiter);
-			waitForPreparedDish(clients, waiter);
-			clients.eat();
+			do {
+				uint32_t waiterID = waitersQueue.getWaiter();
+				Waiter waiter(waiterID, kitchen);
+				orderToWaiter(clients, waiter);
+				waitForPreparedDish(clients, waiter);
+				clients.eat();
+			} while (clients.hungry());
 			LOGGER << "The clients " << clients.getID() <<
 					" are finished eating" << logger::endl;
 		}
