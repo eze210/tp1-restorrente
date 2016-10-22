@@ -6,17 +6,12 @@
 #include "LobbyMonitor.h"
 #include "Logger.h"
 #include "Kitchen.h"
+#include "CashRegister.h"
 
 #define SIGNAL_KILL 2
-const static std::string cajaMem("caja.mem");
-const static std::string noCobradoMem("no-cobrado.mem");
-const static std::string cajaMutexName("caja.mutex");
-const static std::string noCobradoMutexName("no-cobrado.mutex");
 
 Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
 		keepAlive(true), waitersQueue(waitersQ), kitchen(theKitchen) {
-	caja.create(cajaMem,1);
-	dineroPorCobrar.create(noCobradoMem,2);
 }
 
 int Table::run() {
@@ -27,7 +22,6 @@ int Table::run() {
 			// For calculating the cost
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
-			int noCobrado = 0;
 			int costoDePlato = 0;
 			//do {
 				uint32_t waiterID = waitersQueue.getWaiter();
@@ -35,8 +29,7 @@ int Table::run() {
 				costoDePlato = Config::getAvailableFoods().at(clients.getOrder()).getCost();
 				orderToWaiter(clients, waiter);
 
-				noCobrado = dineroPorCobrar.read();
-				dineroPorCobrar.write(noCobrado + costoDePlato);
+				CashRegister::getInstance().addPaymentPromise(costoDePlato);
 
 				waitForPreparedDish(clients, waiter);
 				clients.eat();
@@ -46,10 +39,7 @@ int Table::run() {
 			LOGGER << "The clients " << clients.getID() <<
 					" are finished eating" << logger::endl;
 
-			int dineroEnCaja = caja.read();
-			noCobrado = dineroPorCobrar.read();
-			dineroPorCobrar.write(noCobrado - costoDePlato);
-			caja.write(dineroEnCaja + costoDePlato);
+			CashRegister::getInstance().addPayment(costoDePlato);
 		}
 		catch (const OSException& ex){
 			keepAlive = false;

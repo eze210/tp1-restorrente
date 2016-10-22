@@ -2,9 +2,6 @@
 #define TABLE_H_
 
 #include <domain/ClientsGroup.h>
-#include <utils/Mutex.h>
-#include <utils/LockFile.h>
-#include <utils/SharedMemory.h>
 #include "MyProcess.h"
 #include "WaitersQueue.h"
 #include "Waiter.h"
@@ -17,10 +14,9 @@ private:
     Kitchen& kitchen;
     void orderToWaiter(ClientsGroup clients, Waiter& waiter);
     void waitForPreparedDish(ClientsGroup clients, Waiter& waiter);
-    SharedMemory<int> caja;
-    SharedMemory<int> dineroPorCobrar;
+
 public:
-    explicit Table(WaitersQueue& waitersQueue, Kitchen& theKitchen);
+    Table(WaitersQueue& waitersQueue, Kitchen& theKitchen);
     int run();
     ~Table();
 };

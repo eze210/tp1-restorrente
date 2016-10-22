@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string>
+#include "LockedScope.h"
 
 FifoRead::FifoRead(const std::string &fileName) :
 Fifo(fileName), mutex(fileName + ".mutex") {
@@ -17,7 +18,7 @@ void FifoRead::open() {
     	throw OSException();
 }
 
-ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) const {
+ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) {
 	LockedScope l(mutex);
 
 	ssize_t readed = 0;
