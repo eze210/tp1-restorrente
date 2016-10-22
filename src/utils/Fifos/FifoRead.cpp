@@ -3,7 +3,8 @@
 #include <unistd.h>
 #include <string>
 
-FifoRead::FifoRead(const std::string &fileName) : Fifo(fileName) {
+FifoRead::FifoRead(const std::string &fileName) :
+Fifo(fileName), mutex(fileName + ".mutex") {
     open();
 }
 
@@ -17,8 +18,15 @@ void FifoRead::open() {
 }
 
 ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) const {
-    ssize_t result = ::read(fileDescriptor, buffer, bufferSize);
-    if (result != bufferSize)
-    	throw OSException();
-    return result;
+	LockedScope l(mutex);
+
+	ssize_t readed = 0;
+	while (readed < bufferSize) {
+		ssize_t result = ::read(fileDescriptor, buffer, bufferSize);
+		if (result <= 0)
+			throw OSException();
+		readed += result;
+	}
+
+    return readed;
 }

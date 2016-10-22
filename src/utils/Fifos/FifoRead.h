@@ -8,6 +8,8 @@ class FifoRead : public Fifo {
 private:
     void open();
 
+    Mutex mutex;
+
 public:
     explicit FifoRead(const std::string &fileName);
 
