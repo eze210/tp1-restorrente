@@ -1,8 +1,9 @@
-#include <domain/Order.h>
-#include <processes/Waiter.h>
-#include <utils/SignalHandler.h>
-#include <data/Config.h>
 #include "Table.h"
+
+#include "Order.h"
+#include "Waiter.h"
+#include "SignalHandler.h"
+#include "Config.h"
 #include "LobbyMonitor.h"
 #include "Logger.h"
 #include "Kitchen.h"
@@ -15,56 +16,46 @@ Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
 }
 
 int Table::run() {
-	while ((LobbyMonitor::getInstance().isAlive()) && (keepAlive)){
+	while (keepAlive) {
 		try {
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();
-			//OrderID order = clients.getOrder();
-			// For calculating the cost
+
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
-			int costoDePlato = 0;
-			//do {
-				uint32_t waiterID = waitersQueue.getWaiter();
-				Waiter waiter(waiterID, kitchen);
-				costoDePlato = Config::getAvailableFoods().at(clients.getOrder()).getCost();
-				orderToWaiter(clients, waiter);
 
-				CashRegister::getInstance().addPaymentPromise(costoDePlato);
-
-				waitForPreparedDish(clients, waiter);
+			unsigned int allOrdersPrice = 0;
+			do {
+				allOrdersPrice += orderToSomeWaiter(clients);
 				clients.eat();
-			//} while (clients.hungry());
-
+			} while (clients.hungry());
 
 			LOGGER << "The clients " << clients.getID() <<
 					" are finished eating" << logger::endl;
 
-			CashRegister::getInstance().addPayment(costoDePlato);
+			pay(allOrdersPrice);
 		}
-		catch (const OSException& ex){
+		catch (const OSException& ex) {
 			keepAlive = false;
 		}
 	}
 	return 0;
 }
 
+unsigned int Table::orderToSomeWaiter(ClientsGroup &clients) {
+	/* takes a waiter from the "waiters queue" */
+	Waiter waiter(kitchen, waitersQueue);
 
-void Table::orderToWaiter(ClientsGroup clients, Waiter& waiter) {
 	LOGGER << "The clients " << clients.getID() <<
-			" are served by waiter " << waiter.getID() << logger::endl;
-	waiter.addOrder(clients.getID(), clients.getOrder());
-	waitersQueue.addWaiter(waiter.getID());
+			" are served by some waiter" << logger::endl;
+
+	return waiter.addOrder(clients.getID(), clients.getOrder());
+	/* after return, the Waiter instance finishes its scope, and frees a
+	 * waiter from queue */
 }
 
-void Table::waitForPreparedDish(ClientsGroup clients, Waiter& waiter) {
-	LOGGER << "The clients " << clients.getID() <<
-			" are waiting for the dish " << logger::endl;
-	waiter.getDish(clients.getID());
-	LOGGER << "The clients " << clients.getID() <<
-			" are received the dish" << logger::endl;
+void Table::pay(unsigned int price) {
+	CashRegister::getInstance().addPayment(price);
 }
-
 
 Table::~Table() {
-
 }

@@ -4,11 +4,13 @@
 #include <string>
 #include <cstdint>
 #include "OSException.h"
+#include "Mutex.h"
 
 class Fifo {
 protected:
 	const std::string fileName;
 	int fileDescriptor;
+    Mutex mutex;
 
 public:
 	explicit Fifo(const std::string &fileName);

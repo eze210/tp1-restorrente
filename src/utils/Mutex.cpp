@@ -32,7 +32,12 @@ void Mutex::unlock() {
 }
 
 void Mutex::release() {
+	if (fileDescriptor != invalidFileDescriptor)
+		close(fileDescriptor);
+
 	unlink(fileName.c_str());
+
+	fileDescriptor = invalidFileDescriptor;
 }
 
 Mutex::~Mutex() {
@@ -41,4 +46,6 @@ Mutex::~Mutex() {
 
 	if (close(fileDescriptor) == SYSTEM_ERROR)
         throw OSException();
+
+	fileDescriptor = invalidFileDescriptor;
 }

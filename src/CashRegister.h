@@ -20,6 +20,9 @@ public:
 	unsigned int getUncollectedMoney();
 	unsigned int getMoneyInCashRegister();
 
+	void init();
+	void release();
+
 	~CashRegister();
 };
 

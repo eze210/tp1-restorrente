@@ -1,13 +1,11 @@
 #include "CashRegister.h"
 #include "LockedScope.h"
 
-const static std::string cashRegisterMem("cash-reg.mem");
-const static std::string uncollectedMem("cash-reg-uncollected.mem");
 const static std::string cashRegisterMutexFileName("cash-reg.mutex");
 
 CashRegister::CashRegister() :
-				cash(cashRegisterMem, 'c'),
-				uncollected(uncollectedMem, 'u'),
+				cash(__FILE__, 'c'),
+				uncollected(__FILE__, 'u'),
 				cashMutex(cashRegisterMutexFileName)
 {
 }
@@ -45,6 +43,15 @@ unsigned int CashRegister::getUncollectedMoney() {
 unsigned int CashRegister::getMoneyInCashRegister() {
 	LockedScope l(cashMutex);
 	return cash.read();
+}
+
+void CashRegister::init() {
+	cash.write(0);
+	uncollected.write(0);
+}
+
+void CashRegister::release() {
+	cashMutex.release();
 }
 
 CashRegister::~CashRegister() {

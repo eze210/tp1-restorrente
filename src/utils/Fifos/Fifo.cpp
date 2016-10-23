@@ -9,7 +9,8 @@ const int Fifo::invalidFileDescriptor = -1;
 
 Fifo::Fifo(const std::string &fileName) :
         		fileName(fileName),
-				fileDescriptor(invalidFileDescriptor) {
+				fileDescriptor(invalidFileDescriptor),
+				mutex(fileName + ".mutex") {
 	::mknod(static_cast<const char *>(fileName.c_str()), S_IFIFO | 0666, 0);
 }
 
@@ -27,4 +28,5 @@ void Fifo::close() {
 void Fifo::release() {
 	close();
 	::unlink(fileName.c_str());
+	mutex.release();
 }

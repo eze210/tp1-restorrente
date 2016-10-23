@@ -1,7 +1,7 @@
 #ifndef TABLE_H_
 #define TABLE_H_
 
-#include <domain/ClientsGroup.h>
+#include "ClientsGroup.h"
 #include "MyProcess.h"
 #include "WaitersQueue.h"
 #include "Waiter.h"
@@ -12,8 +12,9 @@ private:
     bool keepAlive;
     WaitersQueue& waitersQueue;
     Kitchen& kitchen;
-    void orderToWaiter(ClientsGroup clients, Waiter& waiter);
-    void waitForPreparedDish(ClientsGroup clients, Waiter& waiter);
+    unsigned int orderToSomeWaiter(ClientsGroup &clients);
+    void waitForPreparedDish(ClientsGroup &clients);
+    void pay(unsigned int price);
 
 public:
     Table(WaitersQueue& waitersQueue, Kitchen& theKitchen);

@@ -1,49 +1,31 @@
-//
-// Created by fabrizio on 15/10/16.
-//
-
-#include <utils/Logger.h>
-#include <domain/Order.h>
-#include <data/Config.h>
-#include <OrdersQueue.h>
-#include <DishesQueue.h>
-#include <Kitchen.h>
 #include "Waiter.h"
-Waiter::Waiter(uint32_t waiterID, Kitchen& theKitchen) : id(waiterID), kitchen(theKitchen) {
+
+#include "Logger.h"
+#include "Order.h"
+#include "Config.h"
+#include "Kitchen.h"
+#include "WaitersQueue.h"
+#include "CashRegister.h"
+
+Waiter::Waiter(Kitchen& theKitchen, WaitersQueue &queue) : kitchen(theKitchen), queue(queue) {
+	queue.getWaiter();
 }
 
-void Waiter::addOrder(uint32_t tableID, OrderID order) {
-    LOGGER << "Waiter " << id << " receiving the order " <<
+unsigned int Waiter::addOrder(uint32_t tableID, OrderID order) {
+    LOGGER << "Waiter receiving the order " <<
     order << " from clients " << tableID << logger::endl;
 
-    kitchen.prepareOrder(order);
-    //OrdersQueue::getInstance().addNewOrder(order);
-    LOGGER << "Waiter " << id << " sent order " <<
+    int cost = Config::getAvailableFoods().at(order).getCost();
+
+    kitchen.prepareOrder(order, queue);
+
+    LOGGER << "Waiter sent order " <<
     order << " to kitchen" << logger::endl;
-}
 
-OrderID Waiter::getDish(uint32_t tableID) {
-    LOGGER << "Waiter " << id << " waiting for the order of clients " <<
-            tableID << " to be prepared " << logger::endl;
-
-    //OrderID order = DishesQueue::getInstance().getPreparedDish();
-    OrderID order = kitchen.getPreparedOrder();
-    LOGGER << "Waiter " << id << " received the dish " <<
-            order << " from the kitchen." << logger::endl;
-    LOGGER << "Waiter " << id << " serving the dish to clients " <<
-            tableID << logger::endl;
-    return order;
-}
-
-
-
-void Waiter::setID(uint32_t waiterID) {
-    id = waiterID;
-}
-
-uint32_t Waiter::getID() {
-    return id;
+	CashRegister::getInstance().addPaymentPromise(cost);
+	return cost;
 }
 
 Waiter::~Waiter() {
+	queue.freeWaiter();
 }

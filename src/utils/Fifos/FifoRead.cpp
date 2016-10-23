@@ -5,7 +5,7 @@
 #include "LockedScope.h"
 
 FifoRead::FifoRead(const std::string &fileName) :
-Fifo(fileName), mutex(fileName + ".mutex") {
+Fifo(fileName) {
     open();
 }
 
@@ -31,3 +31,4 @@ ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) {
 
     return readed;
 }
+

@@ -1,7 +1,3 @@
-//
-// Created by fabrizio on 15/10/16.
-//
-
 #ifndef RESTORRENTE_SEMAPHORE_H
 #define RESTORRENTE_SEMAPHORE_H
 
@@ -11,6 +7,7 @@
 class Semaphore {
 private:
     Semaforo instance;
+
 public:
     Semaphore(const std::string &nombre, const int valorInicial);
     ~Semaphore();
@@ -19,4 +16,4 @@ public:
     void erase() const;
 };
 
-#endif //RESTORRENTE_SEMAPHORE_H
+#endif

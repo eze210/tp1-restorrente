@@ -6,6 +6,7 @@
 Receptionist::Receptionist(Door &door) :
 door(door),
 restaurantOpen(__FILE__, 'o') {
+	LOGGER << "Creating receptionist " << getpid() << logger::endl;
 }
 
 int Receptionist::run() {

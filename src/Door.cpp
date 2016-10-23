@@ -1,11 +1,14 @@
 #include "Door.h"
+
 #include "FifoWrite.h"
 #include "FifoRead.h"
+#include "Config.h"
+
 #include <string>
-#include <data/Config.h>
 
 /** Name to represent the fifo in the file system. */
 const static std::string doorFifoName("door.fifo");
+
 /** Name to represent the semaphore in the file system. */
 const static std::string doorSemName("door.semaphore");
 

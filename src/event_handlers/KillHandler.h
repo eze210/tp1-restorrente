@@ -12,13 +12,9 @@
 
 class KillHandler : public EventHandler {
 public:
-    KillHandler(SharedMemory<int>& caja, SharedMemory<int>& noCobrado);
+    KillHandler();
     int handleSignal(int signalNumber);
     ~KillHandler();
-
-private:
-    SharedMemory<int>& caja;
-    SharedMemory<int>& dineroPorCobrar;
 };
 
 
