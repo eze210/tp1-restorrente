@@ -36,7 +36,7 @@ void ClientsGroup::eat() {
 }
 
 static long int randomPercentage() {
-    srand(getpid());
+    srand(time(0));
     return (rand() % 100);
 }
 
