@@ -45,6 +45,11 @@ unsigned int CashRegister::getMoneyInCashRegister() {
 	return cash.read();
 }
 
+void CashRegister::clearUncollectedMoney() {
+	LockedScope l(cashMutex);
+	uncollected.write(0);
+}
+
 void CashRegister::init() {
 	cash.write(0);
 	uncollected.write(0);
