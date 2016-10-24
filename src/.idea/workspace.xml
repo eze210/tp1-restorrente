@@ -31,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="97" column="21" selection-start-line="97" selection-start-column="14" selection-end-line="97" selection-end-column="21" />
+            <state relative-caret-position="165">
+              <caret line="58" column="24" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Manager.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Manager.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/processes/Manager.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="13" column="32" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="32" />
+            <state relative-caret-position="225">
+              <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
@@ -58,8 +58,8 @@
       <file leaf-file-name="ProcesesKillHandler.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/event_handlers/ProcesesKillHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="17" column="38" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="38" />
+            <state relative-caret-position="60">
+              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -68,8 +68,8 @@
       <file leaf-file-name="ManagerKillHandler.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/event_handlers/ManagerKillHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="31" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="31" />
+            <state relative-caret-position="240">
+              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding>
                 <element signature="e#43#61#0" expanded="true" />
               </folding>
@@ -137,10 +137,10 @@
         <option value="$PROJECT_DIR$/Door.cpp" />
         <option value="$PROJECT_DIR$/event_handlers/ManagerKillHandler.h" />
         <option value="$PROJECT_DIR$/event_handlers/KillHandler.cpp" />
-        <option value="$PROJECT_DIR$/event_handlers/ManagerKillHandler.cpp" />
         <option value="$PROJECT_DIR$/event_handlers/ProcesesKillHandler.cpp" />
-        <option value="$PROJECT_DIR$/processes/Manager.cpp" />
+        <option value="$PROJECT_DIR$/event_handlers/ManagerKillHandler.cpp" />
         <option value="$PROJECT_DIR$/Main.cpp" />
+        <option value="$PROJECT_DIR$/processes/Manager.cpp" />
       </list>
     </option>
   </component>
@@ -489,7 +489,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24980783" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -687,7 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
           <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -751,7 +750,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
           <caret line="53" column="17" selection-start-line="53" selection-start-column="17" selection-end-line="53" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -759,15 +757,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="16" selection-start-line="0" selection-start-column="16" selection-end-line="0" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Table.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="29" column="14" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -775,7 +764,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -783,7 +771,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -791,7 +778,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -815,6 +801,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="236">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Table.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="29" column="14" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -829,8 +822,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/event_handlers/ManagerKillHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="31" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="31" />
+        <state relative-caret-position="240">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding>
             <element signature="e#43#61#0" expanded="true" />
           </folding>
@@ -839,28 +832,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/event_handlers/ProcesesKillHandler.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="38" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="38" />
+        <state relative-caret-position="60">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/processes/Manager.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="97" column="21" selection-start-line="97" selection-start-column="14" selection-end-line="97" selection-end-column="21" />
+        <state relative-caret-position="165">
+          <caret line="58" column="24" selection-start-line="58" selection-start-column="24" selection-end-line="58" selection-end-column="24" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/processes/Manager.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
           </folding>
         </state>
       </provider>

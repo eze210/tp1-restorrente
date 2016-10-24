@@ -1,5 +1,6 @@
 #include <event_handlers/ManagerKillHandler.h>
 #include <csignal>
+#include <utils/SignalHandler.h>
 #include "Manager.h"
 
 #include "Logger.h"
@@ -11,7 +12,9 @@ Manager::Manager() {
 
 int Manager::run() {
     ManagerKillHandler handler;
-    handler.handleSignal(SIGKILL);
+    SignalHandler::getInstance().registerHandler(
+            SIGKILL,
+            &handler);
     while (true) {
         sleep(2);
         LOGGER << "GERENTE CONSULTA:" << logger::endl;
