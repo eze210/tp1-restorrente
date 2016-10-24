@@ -1,3 +1,5 @@
+#include <event_handlers/ManagerKillHandler.h>
+#include <csignal>
 #include "Manager.h"
 
 #include "Logger.h"
@@ -8,7 +10,9 @@ Manager::Manager() {
 }
 
 int Manager::run() {
-    for(int i= 0; i< 5; ++i) {
+    ManagerKillHandler handler;
+    handler.handleSignal(SIGKILL);
+    while (true) {
         sleep(2);
         LOGGER << "GERENTE CONSULTA:" << logger::endl;
         LOGGER << "DINERO EN CAJA: " << CashRegister::getInstance().getMoneyInCashRegister() << logger::endl;

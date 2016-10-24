@@ -14,6 +14,8 @@ ProcesesKillHandler::ProcesesKillHandler() {
 
 int ProcesesKillHandler::handleSignal(int signalNumber) {
     if (signalNumber == SIGINT) {
+        return 0;
+    } else if (signalNumber == SIGKILL) {
         exit(0);
     }
     return 0;

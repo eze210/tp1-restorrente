@@ -20,6 +20,9 @@ int KillHandler::handleSignal(int signalNumber) {
         		CashRegister::getInstance().getUncollectedMoney() <<
 				logger::endl;
         LobbyMonitor::getInstance().clear();
+        CashRegister::getInstance().clearUncollectedMoney();
+    } else if (signalNumber == SIGKILL) {
+        exit(0);
     }
     return 0;
 }

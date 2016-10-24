@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#define CLIENTS_COUNT 2
+#define CLIENTS_COUNT 10
 #define SIGNAL_KILL 2
 
 void printConf() {
@@ -95,6 +95,7 @@ int main(int argc, char** argv) {
 		CashRegister::getInstance().release();
 
 		LOGGER << "EL RESTORRENTE TERMINO CORRECTAMENTE" << logger::endl;
+		raise(SIGKILL);
 		return 0;
 	}
 	catch(const std::exception& e) {

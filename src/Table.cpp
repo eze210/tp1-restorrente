@@ -24,10 +24,10 @@ int Table::run() {
 					" are in their table" << logger::endl;
 
 			unsigned int allOrdersPrice = 0;
-			do {
+			//do {
 				allOrdersPrice += orderToSomeWaiter(clients);
 				clients.eat();
-			} while (clients.hungry());
+			//} while (clients.hungry());
 
 			LOGGER << "The clients " << clients.getID() <<
 					" are finished eating" << logger::endl;
