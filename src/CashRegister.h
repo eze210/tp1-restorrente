@@ -22,6 +22,7 @@ public:
 
 	void init();
 	void release();
+	void clearUncollectedMoney();
 
 	~CashRegister();
 };
