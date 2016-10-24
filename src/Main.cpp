@@ -56,6 +56,8 @@ int main(int argc, char** argv) {
 
 		CashRegister::getInstance().init();
 
+		SharedMemory<bool> managerWorking("/home/fabrizio/Desktop/tp1-restorrente/src/processes/Manager.cpp",1);
+		managerWorking.write(true);
 		Manager manager;
 		manager.start();
 
@@ -84,7 +86,7 @@ int main(int argc, char** argv) {
 		}
 
 		LOGGER << "LIBERANDO MANAGER" << logger::endl;
-		manager.wait();
+		manager.stop();
 
 		LOGGER << "LIBERANDO DOOR" << logger::endl;
 		door.releaseFifo();
@@ -95,7 +97,6 @@ int main(int argc, char** argv) {
 		CashRegister::getInstance().release();
 
 		LOGGER << "EL RESTORRENTE TERMINO CORRECTAMENTE" << logger::endl;
-		raise(SIGKILL);
 		return 0;
 	}
 	catch(const std::exception& e) {

@@ -7,15 +7,12 @@
 #include "LobbyMonitor.h"
 #include "CashRegister.h"
 
-Manager::Manager() {
+Manager::Manager() : working(__FILE__,1) {
 }
 
 int Manager::run() {
-    ManagerKillHandler handler;
-    SignalHandler::getInstance().registerHandler(
-            SIGKILL,
-            &handler);
-    while (true) {
+
+    while (working.read()) {
         sleep(2);
         LOGGER << "GERENTE CONSULTA:" << logger::endl;
         LOGGER << "DINERO EN CAJA: " << CashRegister::getInstance().getMoneyInCashRegister() << logger::endl;
@@ -23,6 +20,12 @@ int Manager::run() {
         LOGGER << "CANTIDAD DE PERSONAS EN EL LOBBY: " << LobbyMonitor::getInstance().getNumberOfClientsInLobby() << logger::endl;
     }
     return 0;
+}
+
+
+void Manager::stop() {
+    working.write(false);
+    this->wait();
 }
 
 Manager::~Manager() { }
