@@ -29,6 +29,9 @@ int Manager::run() {
 void Manager::stop() {
     working.write(false);
     this->wait();
+    working.free();
 }
 
-Manager::~Manager() { }
+Manager::~Manager() {
+
+}

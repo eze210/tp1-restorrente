@@ -3,7 +3,6 @@
 
 #include "MyProcess.h"
 #include "DoorOutside.h"
-#include "SharedMemory.h"
 #include "LobbyMonitor.h"
 #include "DoorInside.h"
 
@@ -13,7 +12,6 @@ class Receptionist : public MyProcess {
 private:
 	DoorInside& door;
 	Semaphore doorSemaphore;
-	SharedMemory<bool> restaurantOpen;
 
 public:
 	explicit Receptionist(DoorInside& aDoor);

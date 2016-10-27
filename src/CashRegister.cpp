@@ -58,6 +58,8 @@ void CashRegister::init() {
 
 void CashRegister::release() {
 	cashMutex.release();
+	cash.free();
+	uncollected.free();
 }
 
 CashRegister::~CashRegister() {

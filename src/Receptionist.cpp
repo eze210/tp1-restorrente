@@ -9,8 +9,7 @@ const static std::string doorSemName("door.semaphore");
 
 Receptionist::Receptionist(DoorInside& aDoor) :
 door(aDoor),
-doorSemaphore(doorSemName, Config::getReceptionistsCount()),
-restaurantOpen(__FILE__, 'o') {
+doorSemaphore(doorSemName, Config::getReceptionistsCount()){
 	LOGGER << "Creating receptionist " << getpid() << logger::endl;
 }
 

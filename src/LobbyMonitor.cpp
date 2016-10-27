@@ -119,6 +119,8 @@ void LobbyMonitor::release() {
 	lobbyFifo.release();
 	tableQueueFifo.release();
 	mutex.release();
+    numberOfClientsInLobby.free();
+    numberOfFreeTables.free();
 }
 
 
