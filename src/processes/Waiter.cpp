@@ -11,7 +11,7 @@ Waiter::Waiter(Kitchen& theKitchen, WaitersQueue &queue) : kitchen(theKitchen), 
 	queue.getWaiter();
 }
 
-unsigned int Waiter::addOrder(uint32_t tableID, OrderID order) {
+int Waiter::addOrder(uint32_t tableID, OrderID order) {
     LOGGER << "Waiter receiving the order " <<
     order << " from clients " << tableID << logger::endl;
 

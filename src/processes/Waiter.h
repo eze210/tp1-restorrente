@@ -11,7 +11,7 @@ private:
 
 public:
     Waiter(Kitchen& theKitchen, WaitersQueue &queue);
-    unsigned int addOrder(uint32_t tableID, OrderID order);
+    int addOrder(uint32_t tableID, OrderID order);
     ~Waiter();
 };
 

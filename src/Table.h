@@ -12,9 +12,9 @@ private:
     bool keepAlive;
     WaitersQueue& waitersQueue;
     Kitchen& kitchen;
-    unsigned int orderToSomeWaiter(ClientsGroup &clients);
+    int orderToSomeWaiter(ClientsGroup &clients);
     void waitForPreparedDish(ClientsGroup &clients);
-    void pay(unsigned int price);
+    void pay(int price);
 
 public:
     Table(WaitersQueue& waitersQueue, Kitchen& theKitchen);

@@ -15,10 +15,10 @@ CashRegister &CashRegister::getInstance() {
 	return staticInstance;
 }
 
-void CashRegister::addPayment(unsigned int amount) {
+void CashRegister::addPayment(int amount) {
 	LockedScope l(cashMutex);
-	unsigned int uncollectedAmount = uncollected.read();
-	unsigned int collectedAmount = cash.read();
+	int uncollectedAmount = uncollected.read();
+	int collectedAmount = cash.read();
 
 	uncollectedAmount -= amount;
 	collectedAmount += amount;
@@ -27,20 +27,20 @@ void CashRegister::addPayment(unsigned int amount) {
 	cash.write(collectedAmount);
 }
 
-void CashRegister::addPaymentPromise(unsigned int amount) {
+void CashRegister::addPaymentPromise(int amount) {
 	LockedScope l(cashMutex);
 
-	unsigned int uncollectedAmount = uncollected.read();
+	int uncollectedAmount = uncollected.read();
 	uncollectedAmount += amount;
 	uncollected.write(uncollectedAmount);
 }
 
-unsigned int CashRegister::getUncollectedMoney() {
+int CashRegister::getUncollectedMoney() {
 	LockedScope l(cashMutex);
 	return uncollected.read();
 }
 
-unsigned int CashRegister::getMoneyInCashRegister() {
+int CashRegister::getMoneyInCashRegister() {
 	LockedScope l(cashMutex);
 	return cash.read();
 }

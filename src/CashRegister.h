@@ -6,19 +6,19 @@
 
 class CashRegister {
 private:
-    SharedMemory<unsigned int> cash;
-    SharedMemory<unsigned int> uncollected;
+    SharedMemory<int> cash;
+    SharedMemory<int> uncollected;
     Mutex cashMutex;
 	CashRegister();
 
 public:
 	static CashRegister &getInstance();
 
-	void addPayment(unsigned int amount);
-	void addPaymentPromise(unsigned int amount);
+	void addPayment(int amount);
+	void addPaymentPromise(int amount);
 
-	unsigned int getUncollectedMoney();
-	unsigned int getMoneyInCashRegister();
+	int getUncollectedMoney();
+	int getMoneyInCashRegister();
 
 	void init();
 	void release();

@@ -23,7 +23,7 @@ int Table::run() {
 			LOGGER << "The clients " << clients.getID() <<
 					" are in their table" << logger::endl;
 
-			unsigned int allOrdersPrice = 0;
+			int allOrdersPrice = 0;
 			//do {
 				allOrdersPrice += orderToSomeWaiter(clients);
 				clients.eat();
@@ -41,7 +41,7 @@ int Table::run() {
 	return 0;
 }
 
-unsigned int Table::orderToSomeWaiter(ClientsGroup &clients) {
+int Table::orderToSomeWaiter(ClientsGroup &clients) {
 	/* takes a waiter from the "waiters queue" */
 	Waiter waiter(kitchen, waitersQueue);
 
@@ -53,7 +53,7 @@ unsigned int Table::orderToSomeWaiter(ClientsGroup &clients) {
 	 * waiter from queue */
 }
 
-void Table::pay(unsigned int price) {
+void Table::pay(int price) {
 	CashRegister::getInstance().addPayment(price);
 }
 
