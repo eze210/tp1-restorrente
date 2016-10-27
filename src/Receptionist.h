@@ -2,19 +2,21 @@
 #define RECEPTIONIST_H_
 
 #include "MyProcess.h"
-#include "Door.h"
+#include "DoorOutside.h"
 #include "SharedMemory.h"
 #include "LobbyMonitor.h"
+#include "DoorInside.h"
 
 typedef char ReceptionistID;
 
 class Receptionist : public MyProcess {
 private:
-	Door &door;
+	DoorInside& door;
+	Semaphore doorSemaphore;
 	SharedMemory<bool> restaurantOpen;
 
 public:
-	explicit Receptionist(Door &door);
+	explicit Receptionist(DoorInside& aDoor);
 	int run();
 	virtual ~Receptionist();
 };

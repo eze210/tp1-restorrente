@@ -51,6 +51,7 @@ void CashRegister::clearUncollectedMoney() {
 }
 
 void CashRegister::init() {
+	LockedScope l(cashMutex);
 	cash.write(0);
 	uncollected.write(0);
 }

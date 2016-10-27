@@ -1,4 +1,4 @@
-#include "Door.h"
+#include "DoorOutside.h"
 #include "ClientsGenerator.h"
 #include "Logger.h"
 
@@ -12,11 +12,12 @@ ClientsGenerator::~ClientsGenerator() { }
 
 int ClientsGenerator::run() {
 	LOGGER << "Starting a clients generator" << logger::endl;
-    Door door;
+    DoorOutside door;
     for (ClientID i = 0; i < clientsCount; ++i) {
     	LOGGER << "The client " << i << " has arrived to the restorrente" <<
     			logger::endl;
         door.addClients(i);
     }
+    door.releaseFifo();
     return 0;
 }

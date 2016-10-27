@@ -2,21 +2,19 @@
 #define DOOR_H_
 
 #include <utils/Semaphore.h>
+#include <utils/Fifos/FifoWrite.h>
 #include "ClientsGroup.h"
 #include "Fifo.h"
 
-class Door {
+class DoorOutside {
 private:
-	Fifo doorFifo;
-	Semaphore doorSemaphore;
-
+	FifoWrite doorFifo;
 
 public:
-    Door();
-    ClientsGroup getClients();
+    DoorOutside();
     void addClients(const ClientID clientID);
     void releaseFifo();
-    ~Door();
+    ~DoorOutside();
 };
 
 #endif

@@ -1,5 +1,5 @@
 #include "Config.h"
-#include "Door.h"
+#include "DoorOutside.h"
 #include "Receptionist.h"
 #include "ClientsGenerator.h"
 #include "Table.h"
@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#define CLIENTS_COUNT 10
+#define CLIENTS_COUNT 4
 #define SIGNAL_KILL 2
 
 void printConf() {
@@ -35,10 +35,11 @@ int main(int argc, char** argv) {
 		Config::loadConfig();
 		printConf();
 
-		Door door;
+		//Door door;
 		ClientsGenerator generator(CLIENTS_COUNT);
 		generator.start();
 
+		DoorInside door;
 		std::vector<Receptionist> recepcionists(
 				Config::getReceptionistsCount(),
 				Receptionist(door));
@@ -73,10 +74,13 @@ int main(int argc, char** argv) {
 
 		/* waits children */
 		generator.wait();
+
+
 		for (Receptionist &recepcionist : recepcionists) {
 			recepcionist.wait();
 			LOGGER << "RECEPCIONISTA LIBERADO" << logger::endl;
 		}
+
 
 		for (Table &table : tables) {
 			LOGGER << "LIBERANDO MESA" << logger::endl;

@@ -11,15 +11,17 @@ KillHandler::KillHandler(){
 
 int KillHandler::handleSignal(int signalNumber) {
     if (signalNumber == SIGINT) {
-        LOGGER << "KILL---------------" << signalNumber << logger::endl;
-        LOGGER << "SE PRODUJO UN CORTE DE LUZ" << logger::endl;
+        LOGGER << logger::endl;
+        LOGGER << "SE PRODUJO UN CORTE DE LUZ--------------------" << logger::endl;
         LOGGER << "DINERO EN CAJA: " <<
         		CashRegister::getInstance().getMoneyInCashRegister() <<
 				logger::endl;
         LOGGER << "DINERO SIN COBRAR: " <<
         		CashRegister::getInstance().getUncollectedMoney() <<
 				logger::endl;
+        LOGGER << logger::endl;
         LobbyMonitor::getInstance().clear();
+        LOGGER << "LOBBY EVACUADO" << logger::endl;
         CashRegister::getInstance().clearUncollectedMoney();
     } else if (signalNumber == SIGKILL) {
         exit(0);
