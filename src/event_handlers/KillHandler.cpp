@@ -4,7 +4,6 @@
 #include "CashRegister.h"
 
 #include <csignal>
-#include <CorteDeLuz.h>
 
 #define SIGNAL_KILL 2
 KillHandler::KillHandler(){

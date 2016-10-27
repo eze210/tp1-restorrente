@@ -20,7 +20,7 @@ endforeach ()
 list(REMOVE_DUPLICATES DIRS)
 include_directories(${DIRS})
 
-add_executable(restorrente ${SOURCES} event_handlers/ManagerKillHandler.cpp event_handlers/ManagerKillHandler.h DoorInside.cpp DoorInside.h CorteDeLuz.cpp CorteDeLuz.h)
+add_executable(restorrente ${SOURCES})
 set_target_properties(restorrente PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(restorrente)
