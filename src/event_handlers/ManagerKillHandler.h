@@ -13,6 +13,7 @@ public:
     ManagerKillHandler();
     int handleSignal(int signalNumber);
     ~ManagerKillHandler();
+
 };
 
 

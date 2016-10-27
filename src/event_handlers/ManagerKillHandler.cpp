@@ -4,6 +4,7 @@
 
 #include <csignal>
 #include <cstdlib>
+#include <processes/Manager.h>
 #include "ManagerKillHandler.h"
 
 ManagerKillHandler::ManagerKillHandler() {
@@ -13,7 +14,7 @@ int ManagerKillHandler::handleSignal(int signalNumber) {
     if (signalNumber == SIGKILL) {
         exit(0);
     } else if (signalNumber == SIGINT) {
-        exit(0);
+        return 0;
     }
     return 0;
 }

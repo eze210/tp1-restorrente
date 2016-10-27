@@ -12,7 +12,8 @@ Manager::Manager() : working(__FILE__,1) {
 }
 
 int Manager::run() {
-
+    //ManagerKillHandler handler(*this);
+    //SignalHandler::getInstance().registerHandler(SIGINT, &handler);
     while (working.read()) {
         sleep(3);
         LOGGER << logger::endl;
@@ -29,9 +30,8 @@ int Manager::run() {
 void Manager::stop() {
     working.write(false);
     this->wait();
-    working.free();
 }
 
 Manager::~Manager() {
-
+    working.free();
 }

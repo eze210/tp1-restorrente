@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#define CLIENTS_COUNT 4
+#define CLIENTS_COUNT 10
 #define SIGNAL_KILL 2
 
 void printConf() {
