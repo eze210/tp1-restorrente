@@ -27,5 +27,5 @@ int Waiter::addOrder(uint32_t tableID, OrderID order) {
 }
 
 Waiter::~Waiter() {
-	queue.freeWaiter();
+    queue.freeWaiter();
 }

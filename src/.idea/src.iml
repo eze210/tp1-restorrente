@@ -3,7 +3,8 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/DoorOutside.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Table.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CorteDeLuz.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Receptionist.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Kitchen.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LobbyMonitor.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/utils/Mutex.h" isTestSource="false" />
@@ -36,7 +37,7 @@
       <sourceFolder url="file://$MODULE_DIR$/processes/Manager.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/processes/Manager.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/processes/Waiter.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Kitchen.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Table.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WaitersQueue.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DoorInside.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DoorOutside.cpp" isTestSource="false" />
@@ -52,6 +53,7 @@
       <sourceFolder url="file://$MODULE_DIR$/event_handlers/KillHandler.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/event_handlers/ManagerKillHandler.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/event_handlers/ProcesesKillHandler.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CorteDeLuz.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/Food.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/domain/ClientsGroup.cpp" isTestSource="false" />
@@ -59,7 +61,7 @@
       <sourceFolder url="file://$MODULE_DIR$/domain/ClientsGroup.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/LobbyMonitor.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/DoorInside.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Receptionist.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Kitchen.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CashRegister.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/WaitersQueue.cpp" isTestSource="false" />
     </content>

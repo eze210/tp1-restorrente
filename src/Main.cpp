@@ -103,10 +103,9 @@ int main(int argc, char** argv) {
 	}
 	catch(const std::exception& e) {
 		LOGGER << "Exception catched: " << e.what() << logger::endl;
+		return 0;
 	}
 	catch(int returnCode) {
 		return returnCode;
 	}
-
-	return 0;
 }

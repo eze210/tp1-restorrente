@@ -1,6 +1,7 @@
 #ifndef TABLE_H_
 #define TABLE_H_
 
+#include <utils/EventHandler.h>
 #include "ClientsGroup.h"
 #include "MyProcess.h"
 #include "WaitersQueue.h"
@@ -15,7 +16,6 @@ private:
     int orderToSomeWaiter(ClientsGroup &clients);
     void waitForPreparedDish(ClientsGroup &clients);
     void pay(int price);
-
 public:
     Table(WaitersQueue& waitersQueue, Kitchen& theKitchen);
     int run();

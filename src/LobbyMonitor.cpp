@@ -145,6 +145,8 @@ void LobbyMonitor::clear() {
         clientsInLobby = numberOfClientsInLobby.read();
         mutex.unlock();
     }
+    lobbyFifo.close();
+    tableQueueFifo.close();
     alive = false;
 }
 

@@ -4,6 +4,7 @@
 
 #include <utils/Logger.h>
 #include <csignal>
+#include <LobbyMonitor.h>
 #include "ProcesesKillHandler.h"
 
 
@@ -14,7 +15,7 @@ ProcesesKillHandler::ProcesesKillHandler() {
 
 int ProcesesKillHandler::handleSignal(int signalNumber) {
     if (signalNumber == SIGINT) {
-        return 0;
+        exit(0);
     } else if (signalNumber == SIGKILL) {
         exit(0);
     }

@@ -4,6 +4,7 @@
 #include "CashRegister.h"
 
 #include <csignal>
+#include <CorteDeLuz.h>
 
 #define SIGNAL_KILL 2
 KillHandler::KillHandler(){
@@ -23,6 +24,7 @@ int KillHandler::handleSignal(int signalNumber) {
         LobbyMonitor::getInstance().clear();
         LOGGER << "LOBBY EVACUADO" << logger::endl;
         CashRegister::getInstance().clearUncollectedMoney();
+        exit(0);
     } else if (signalNumber == SIGKILL) {
         exit(0);
     }

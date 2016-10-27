@@ -19,6 +19,8 @@ void CashRegister::addPayment(int amount) {
 	LockedScope l(cashMutex);
 	int uncollectedAmount = uncollected.read();
 	int collectedAmount = cash.read();
+	if ((uncollectedAmount - amount) < 0)
+		return;
 
 	uncollectedAmount -= amount;
 	collectedAmount += amount;

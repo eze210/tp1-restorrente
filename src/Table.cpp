@@ -21,25 +21,26 @@ int Table::run() {
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();
 
 			LOGGER << "The clients " << clients.getID() <<
-					" are in their table" << logger::endl;
+			" are in their table" << logger::endl;
 
 			int allOrdersPrice = 0;
 			//do {
-				allOrdersPrice += orderToSomeWaiter(clients);
-				clients.eat();
+			allOrdersPrice += orderToSomeWaiter(clients);
+			clients.eat();
 			//} while (clients.hungry());
 
 			LOGGER << "The clients " << clients.getID() <<
-					" are finished eating" << logger::endl;
+			" are finished eating" << logger::endl;
 
 			pay(allOrdersPrice);
 		}
-		catch (const OSException& ex) {
+		catch (const OSException &ex) {
 			keepAlive = false;
 		}
 	}
 	return 0;
 }
+
 
 int Table::orderToSomeWaiter(ClientsGroup &clients) {
 	/* takes a waiter from the "waiters queue" */
