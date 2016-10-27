@@ -16,6 +16,8 @@ Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
 }
 
 int Table::run() {
+	LobbyMonitor::getInstance().openForRead();
+
 	while (keepAlive) {
 		try {
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();

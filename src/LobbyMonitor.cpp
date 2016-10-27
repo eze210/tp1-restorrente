@@ -1,7 +1,6 @@
 #include "LobbyMonitor.h"
 #include "LockedScope.h"
-#include "FifoWrite.h"
-#include "FifoRead.h"
+
 #include "Logger.h"
 #include <string>
 
@@ -22,15 +21,16 @@ LobbyMonitor::LobbyMonitor() :
 	numberOfClientsInLobby.write(0);
 	numberOfClientsInLobby.write(0);
     alive = true;
+	lobbyFifoW = NULL;
+   	tableQueueFifoW = NULL;
+    lobbyFifoR = NULL;
+    tableQueueFifoR = NULL;
 }
 
 
 /** Adds a client in the corresponding queue (lobby or direct queue to tables)
  */
 void LobbyMonitor::addClients(const ClientsGroup &clients) {
-    static FifoWrite lobbyFifo(lobbyFifoName);
-    static FifoWrite tableQueueFifo(tableQueueFifoName);
-
 	ClientID clientID = clients.getID();
     mutex.lock();
     size_t freeTables = numberOfFreeTables.read();
@@ -44,11 +44,11 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
     if (freeTables == 0) {
 		LOGGER << "Releasing client " << clientID <<
 				" in the lobby" << logger::endl;
-        lobbyFifo.write(static_cast<const void *>(&clientID), sizeof clientID);
+        lobbyFifoW->write(static_cast<const void *>(&clientID), sizeof clientID);
     } else {
 		LOGGER << "Releasing client " << clientID <<
 				" in the table queue" << logger::endl;
-        tableQueueFifo.write(static_cast<const void *>(&clientID),
+        tableQueueFifoW->write(static_cast<const void *>(&clientID),
                              sizeof clientID);
     }
 
@@ -59,21 +59,18 @@ void LobbyMonitor::addClients(const ClientsGroup &clients) {
  *  and after in the direct queue)
  */
 ClientsGroup LobbyMonitor::getClients() {
-    static FifoRead lobbyFifo(lobbyFifoName);
-    static FifoRead tableQueueFifo(tableQueueFifoName);
-
 	ClientID clientID;
     mutex.lock();
     size_t clientsInLobby = numberOfClientsInLobby.read();
     if (clientsInLobby > 0) {
         numberOfClientsInLobby.write(clientsInLobby - 1);
         mutex.unlock();
-        lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
+        lobbyFifoR->read(static_cast<void *>(&clientID), sizeof clientID);
 		LOGGER << "Getting client " << clientID << " from lobby" << logger::endl;
     } else {
     	increaseFreeTables();
         mutex.unlock();
-        tableQueueFifo.read(static_cast<void *>(&clientID), sizeof clientID);
+        tableQueueFifoR->read(static_cast<void *>(&clientID), sizeof clientID);
 		LOGGER << "Getting client " << clientID << " from the table queue" << logger::endl;
     }
 
@@ -152,4 +149,26 @@ void LobbyMonitor::clear() {
 
 bool LobbyMonitor::isAlive() {
     return alive;
+}
+
+void LobbyMonitor::openForWrite() {
+	lobbyFifoW = new FifoWrite(lobbyFifoName);
+   	tableQueueFifoW = new FifoWrite(tableQueueFifoName);
+
+}
+
+void LobbyMonitor::openForRead() {
+    lobbyFifoR = new FifoRead(lobbyFifoName);
+    tableQueueFifoR = new FifoRead(tableQueueFifoName);
+}
+
+LobbyMonitor::~LobbyMonitor() {
+	if (lobbyFifoW)
+		delete lobbyFifoW;
+	if (tableQueueFifoW)
+		delete tableQueueFifoW;
+	if (lobbyFifoR)
+		delete lobbyFifoR;
+	if (tableQueueFifoR)
+		delete tableQueueFifoR;
 }

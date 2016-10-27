@@ -5,6 +5,8 @@
 #include "SharedMemory.h"
 #include "domain/ClientsGroup.h"
 #include "Fifo.h"
+#include "FifoWrite.h"
+#include "FifoRead.h"
 
 class LobbyMonitor {
 private:
@@ -18,6 +20,11 @@ private:
     Fifo lobbyFifo;
     /** Lobby queue */
     Fifo tableQueueFifo;
+
+    FifoWrite *lobbyFifoW;
+   	FifoWrite *tableQueueFifoW;
+    FifoRead *lobbyFifoR;
+    FifoRead *tableQueueFifoR;
 
     LobbyMonitor();
     bool alive;
@@ -33,6 +40,11 @@ public:
     static LobbyMonitor &getInstance();
     void clear();
     bool isAlive();
+
+    void openForWrite();
+    void openForRead();
+
+    ~LobbyMonitor();
 };
 
 #endif

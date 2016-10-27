@@ -14,6 +14,7 @@ doorSemaphore(doorSemName, Config::getReceptionistsCount()){
 }
 
 int Receptionist::run() {
+	LobbyMonitor::getInstance().openForWrite();
 	LOGGER << "Receptionist " << getpid() <<
 			" waiting for clients in the door" << logger::endl;
 
@@ -42,6 +43,7 @@ int Receptionist::run() {
 		LOGGER << "Receptionist " << getpid() << " saw the door closed" <<
 				logger::endl;
 	}
+
 	return 0;
 }
 
