@@ -11,6 +11,7 @@ private:
 public:
     explicit FifoRead(const std::string &fileName);
     ssize_t read(void *buffer, const ssize_t bufferSize);
+    ssize_t forceRead(void *buffer, const ssize_t bufferSize);
     ~FifoRead();
 };
 

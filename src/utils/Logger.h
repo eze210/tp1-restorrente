@@ -10,6 +10,8 @@
 #include <string>
 #include <chrono>
 #include <sys/time.h>
+#include <sstream>
+
 
 /** Useful macro to use C useful macros. */
 #define LOGGER                                                                 \
@@ -53,19 +55,33 @@ namespace logger {
     public:
         Logger();
 
+        void logToFile(const std::string &message) const {
+        	LockFile l("log.txt");
+        	l.tomarLock();
+        	l.escribir(message.c_str(), message.length());
+        	l.liberarLock();
+        }
+
         template<typename T>
         const Logger &operator<<(const T &message) const {
             struct timeval tv;
             struct timezone tz;
             gettimeofday(&tv, &tz);
             ConditionallyUnlockedScope(loggingLock, false);
+        	std::stringstream ss;
+        	ss << message;
+        	logToFile(ss.str());
             outputStream << message;
             return *this;
         }
 
+
         /* Only unlocked when given a logger::endl character! */
         const Logger &operator<<(const char message) const {
             ConditionallyUnlockedScope(loggingLock, message == logger::endl);
+        	std::stringstream ss;
+        	ss << message;
+        	logToFile(ss.str());
             outputStream << message;
         	return *this;
         }

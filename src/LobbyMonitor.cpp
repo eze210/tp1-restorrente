@@ -135,15 +135,10 @@ void LobbyMonitor::clear() {
     size_t clientsInLobby = numberOfClientsInLobby.read();
     LOGGER << "Evacuating lobby" << logger::endl;
     while (clientsInLobby > 0) {
-        mutex.lock();
-        static FifoRead lobbyFifo(lobbyFifoName);
         numberOfClientsInLobby.write(clientsInLobby - 1);
-        lobbyFifo.read(static_cast<void *>(&clientID), sizeof clientID);
+        lobbyFifoR->forceRead(static_cast<void *>(&clientID), sizeof clientID);
         clientsInLobby = numberOfClientsInLobby.read();
-        mutex.unlock();
     }
-    lobbyFifo.close();
-    tableQueueFifo.close();
     alive = false;
 }
 
@@ -160,6 +155,11 @@ void LobbyMonitor::openForWrite() {
 void LobbyMonitor::openForRead() {
     lobbyFifoR = new FifoRead(lobbyFifoName);
     tableQueueFifoR = new FifoRead(tableQueueFifoName);
+}
+
+void LobbyMonitor::closeFifoWrite() {
+	lobbyFifoW->close();
+	tableQueueFifoW->close();
 }
 
 LobbyMonitor::~LobbyMonitor() {

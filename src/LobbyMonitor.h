@@ -44,6 +44,8 @@ public:
     void openForWrite();
     void openForRead();
 
+	void closeFifoWrite();
+
     ~LobbyMonitor();
 };
 

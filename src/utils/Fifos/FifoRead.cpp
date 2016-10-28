@@ -32,3 +32,14 @@ ssize_t FifoRead::read(void *buffer, const ssize_t bufferSize) {
     return readed;
 }
 
+ssize_t FifoRead::forceRead(void *buffer, const ssize_t bufferSize) {
+	ssize_t readed = 0;
+	while (readed < bufferSize) {
+		ssize_t result = ::read(fileDescriptor, buffer, bufferSize);
+		if (result <= 0)
+			throw OSException();
+		readed += result;
+	}
+
+    return readed;
+}

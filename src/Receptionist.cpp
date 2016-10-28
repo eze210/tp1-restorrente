@@ -44,6 +44,7 @@ int Receptionist::run() {
 				logger::endl;
 	}
 
+	LobbyMonitor::getInstance().closeFifoWrite();
 	return 0;
 }
 

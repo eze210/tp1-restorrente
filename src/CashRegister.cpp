@@ -38,7 +38,7 @@ void CashRegister::addPaymentPromise(int amount) {
 }
 
 int CashRegister::getUncollectedMoney() {
-	LockedScope l(cashMutex);
+	//LockedScope l(cashMutex);
 	return uncollected.read();
 }
 
@@ -58,10 +58,19 @@ void CashRegister::init() {
 	uncollected.write(0);
 }
 
+#include "OSException.h"
+#include "Logger.h"
+
 void CashRegister::release() {
+	try {
 	cashMutex.release();
 	cash.free();
 	uncollected.free();
+
+	}
+	catch(const OSException &e) {
+		LOGGER << e.what() << logger::endl;
+	}
 }
 
 CashRegister::~CashRegister() {

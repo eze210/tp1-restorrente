@@ -15,7 +15,7 @@
 
 #include <vector>
 
-#define CLIENTS_COUNT 10
+#define CLIENTS_COUNT 30
 #define SIGNAL_KILL 2
 
 void printConf() {
@@ -81,7 +81,6 @@ int main(int argc, char** argv) {
 			LOGGER << "RECEPCIONISTA LIBERADO" << logger::endl;
 		}
 
-
 		for (Table &table : tables) {
 			LOGGER << "LIBERANDO MESA" << logger::endl;
 			table.wait();
@@ -106,6 +105,7 @@ int main(int argc, char** argv) {
 		return 0;
 	}
 	catch(int returnCode) {
+		LOGGER << "Some proccess has finished" << logger::endl;
 		return returnCode;
 	}
 }

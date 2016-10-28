@@ -56,9 +56,9 @@ void SharedMemory<T>::create(
 
 template<class T>
 void SharedMemory<T>::free() {
-    int errorDt = shmdt((void *) this->dataPointer);
-    if (errorDt == -1)
-        throw OSException();
+    /*int errorDt =*/ shmdt((void *) this->dataPointer);
+//    if (errorDt == -1)
+//        throw OSException();
 
     if (this->numberOfAttachedProcesses() == 0)
         shmctl(this->sharedMemoryID, IPC_RMID, NULL);

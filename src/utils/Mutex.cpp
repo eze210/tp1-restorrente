@@ -44,8 +44,7 @@ Mutex::~Mutex() {
 	if (fileDescriptor == invalidFileDescriptor)
 		return;
 
-	if (close(fileDescriptor) == SYSTEM_ERROR)
-        throw OSException();
+	close(fileDescriptor);
 
 	fileDescriptor = invalidFileDescriptor;
 }
