@@ -8,6 +8,10 @@
 #include "Logger.h"
 #include "Kitchen.h"
 #include "CashRegister.h"
+#include <iostream>
+#include "LightHandler.h"
+#include "SignalHandler.h"
+
 
 #define SIGNAL_KILL 2
 
@@ -16,10 +20,16 @@ Table::Table(WaitersQueue& waitersQ, Kitchen& theKitchen) :
 }
 
 int Table::run() {
+	bool powerFailure = false;
 	LobbyMonitor::getInstance().openForRead();
+	LightHandler lightHandler(powerFailure);
+	SignalHandler::getInstance().registerHandler(
+			SIGINT,
+			&lightHandler);
 
 	while (keepAlive) {
 		try {
+			powerFailure = false;
 			ClientsGroup clients = LobbyMonitor::getInstance().getClients();
 
 			LOGGER << "The clients " << clients.getID() <<
@@ -27,13 +37,22 @@ int Table::run() {
 
 			int allOrdersPrice = 0;
 			do {
-			allOrdersPrice += orderToSomeWaiter(clients);
-			clients.eat();
-			} while (clients.hungry());
+				if (powerFailure) break;
+				allOrdersPrice += orderToSomeWaiter(clients);
+
+				if (powerFailure) break;
+				clients.eat();
+			} while (clients.hungry() && !powerFailure);
+
+			if (powerFailure) {
+				LOGGER << "Power failure, client " << clients.getID() <<
+						" did not pay and exited from the table." <<
+						logger::endl;
+				continue;
+			}
 
 			LOGGER << "The clients " << clients.getID() <<
 			" are finished eating" << logger::endl;
-
 			pay(allOrdersPrice);
 		}
 		catch (const OSException &ex) {

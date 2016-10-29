@@ -16,6 +16,7 @@ private:
     int orderToSomeWaiter(ClientsGroup &clients);
     void waitForPreparedDish(ClientsGroup &clients);
     void pay(int price);
+
 public:
     Table(WaitersQueue& waitersQueue, Kitchen& theKitchen);
     int run();

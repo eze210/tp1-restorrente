@@ -32,8 +32,8 @@ void Config::loadConfig() {
     }
     try {
         receptionists = std::stoi(getNextConfValue(conf));
-        waiters = std::stoi(getNextConfValue(conf));
         tables = std::stoi(getNextConfValue(conf));
+        waiters = std::stoi(getNextConfValue(conf));
         foods = getFoodsFromLine(getNextConfValue(conf));
         loaded = true;
     } catch (const std::ifstream::failure& e){
