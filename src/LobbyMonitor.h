@@ -46,6 +46,11 @@ public:
 
 	void closeFifoWrite();
 
+	void init() {
+		numberOfClientsInLobby.write(0);
+		numberOfClientsInLobby.write(0);
+	}
+
     ~LobbyMonitor();
 };
 

@@ -20,7 +20,7 @@ int KillHandler::handleSignal(int signalNumber) {
         		CashRegister::getInstance().getUncollectedMoney() <<
 				logger::endl;
         LOGGER << logger::endl;
-        LobbyMonitor::getInstance().openForRead();
+//        LobbyMonitor::getInstance().openForRead();
         LobbyMonitor::getInstance().clear();
         LOGGER << "LOBBY EVACUADO" << logger::endl;
 //        CashRegister::getInstance().clearUncollectedMoney();

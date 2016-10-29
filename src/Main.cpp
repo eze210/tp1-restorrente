@@ -35,9 +35,10 @@ int main(int argc, char** argv) {
 		Config::loadConfig();
 		printConf();
 
-		//Door door;
 		ClientsGenerator generator(CLIENTS_COUNT);
 		generator.start();
+
+		LobbyMonitor::getInstance().init();
 
 		DoorInside door;
 		std::vector<Receptionist> recepcionists(
@@ -64,6 +65,8 @@ int main(int argc, char** argv) {
 		for (Receptionist &recepcionist : recepcionists) {
 			recepcionist.start();
 		}
+
+		LobbyMonitor::getInstance().openForRead();
 
 		for (Table &table : tables) {
 			table.start();

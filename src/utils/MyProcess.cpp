@@ -22,7 +22,7 @@ void MyProcess::start() {
 
     /* the child process will exit with the return value of run */
     if (pid == 0)
-        exit(run());
+        throw run();
 }
 
 
@@ -32,8 +32,7 @@ void MyProcess::start() {
  */
 int MyProcess::wait() {
     int status;
-    if (waitpid(pid, &status, 0) == -1)
-        throw OSException();
+    waitpid(pid, &status, 0);
     return WEXITSTATUS(status);
 }
 

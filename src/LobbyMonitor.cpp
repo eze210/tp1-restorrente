@@ -18,8 +18,7 @@ LobbyMonitor::LobbyMonitor() :
         numberOfClientsInLobby(__FILE__, 'c'),
 		lobbyFifo(lobbyFifoName),
 		tableQueueFifo(tableQueueFifoName) {
-	numberOfClientsInLobby.write(0);
-	numberOfClientsInLobby.write(0);
+
     alive = true;
 	lobbyFifoW = NULL;
    	tableQueueFifoW = NULL;

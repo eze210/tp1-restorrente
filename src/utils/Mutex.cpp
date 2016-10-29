@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string>
 #include <iostream>
+#include "Logger.h"
 
 #define SYSTEM_ERROR (-1)
 const int Mutex::invalidFileDescriptor = -1;
