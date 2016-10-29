@@ -78,15 +78,14 @@ int main(int argc, char** argv) {
 		/* waits children */
 		generator.wait();
 
+		for (Table &table : tables) {
+			LOGGER << "LIBERANDO MESA" << logger::endl;
+			table.wait();
+		}
 
 		for (Receptionist &recepcionist : recepcionists) {
 			recepcionist.wait();
 			LOGGER << "RECEPCIONISTA LIBERADO" << logger::endl;
-		}
-
-		for (Table &table : tables) {
-			LOGGER << "LIBERANDO MESA" << logger::endl;
-			table.wait();
 		}
 
 		LOGGER << "LIBERANDO MANAGER" << logger::endl;

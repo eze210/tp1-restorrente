@@ -5,6 +5,8 @@
 #include "MyProcess.h"
 #include "OSException.h"
 #include <sys/wait.h>
+#include <iostream>
+#include <cerrno>
 
 
 /* ************************************************************************* *
@@ -32,7 +34,12 @@ void MyProcess::start() {
  */
 int MyProcess::wait() {
     int status;
-    waitpid(pid, &status, 0);
+    while (waitpid(pid, &status, 0) == -1) {
+    	/* waitpid returns -1 when a signal interrupted the child process.
+    	 * That case is not an error for us */
+    	if (errno != EINTR)
+    		throw OSException();
+    }
     return WEXITSTATUS(status);
 }
 
